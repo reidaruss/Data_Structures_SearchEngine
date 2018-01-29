@@ -1,0 +1,8 @@
+# Mac OS hidden file
+.DS_Store
+
+# Build directories
+build-*/
+
+# Autosaves
+*~
