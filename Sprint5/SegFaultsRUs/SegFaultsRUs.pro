@@ -14,4 +14,5 @@ HEADERS += \
     indexhandler.h \
     docparser.h \
     queryprocessor.h \
-    userinterface.h
+    userinterface.h \
+    avltree.h
