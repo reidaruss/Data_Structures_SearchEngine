@@ -4,3 +4,9 @@ DocParser::DocParser()
 {
 
 }
+
+
+AVLTree DocParser::input()
+{
+
+}
