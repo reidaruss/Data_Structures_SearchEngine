@@ -19,6 +19,7 @@
 #elif defined(__ARM_NEON)
     #define RAPIDJSON_NEON
 #endif
+#define RAPIDJSON_48BITPOINTER_OPTIMIZATION 0
 //JSON PARSING
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
