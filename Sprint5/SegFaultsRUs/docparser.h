@@ -1,15 +1,25 @@
 #ifndef DOCPARSER_H
 #define DOCPARSER_H
-#import "avltree.h"
+
+#include <string>
+
+using namespace std;
 
 class DocParser
 {
 public:
     DocParser();
-    AVLTree input();
-    void JSONParse();
+    void processData();
+    void readFiles();
+    void parse(char* FILENAME);
+
+    void setDirectoryHead(char* headToSet);
+private:
+    char* directoryHead;
+    int filesProcessed;
+
 };
 
-//I added this comment to save Reid's ass.
+
 
 #endif // DOCPARSER_H
