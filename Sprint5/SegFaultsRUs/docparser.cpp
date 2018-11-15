@@ -32,6 +32,7 @@ void DocParser::readFiles(){
     while(((dir = readdir(directory)) != NULL)){
         if(dir->d_type == 0x8){
             filesProcessed++;
+            //cout << dir->d_name;
             parse(dir->d_name);
         }
     }
@@ -64,7 +65,7 @@ void DocParser::parse(char* FILENAME){
     Document d;
     d.Parse(map);
     Value& sha = d["sha1"];
-    cout << filesProcessed << '\t' << sha.GetString() << endl;
+    //cout << '\t' << filesProcessed << '\t' << sha.GetString() << endl;
 
     //Un-memory map the file
     if (map == MAP_FAILED) {

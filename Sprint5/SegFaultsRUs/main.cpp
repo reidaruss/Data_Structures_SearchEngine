@@ -23,7 +23,7 @@ using namespace rapidjson;
 int main(int argc, char *argv[])
 {
     DocParser theDoc;
-    theDoc.setDirectoryHead("/home/student/Desktop/testJSONFiles/");
+    theDoc.setDirectoryHead("/home/student/Desktop/largeJSONtest/");
     theDoc.readFiles();
 
     return 0;
