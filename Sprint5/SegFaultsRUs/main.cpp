@@ -23,8 +23,11 @@ using namespace rapidjson;
 
 int main(int argc, char *argv[])
 {
+    char* dir_path = argv[1];
+    string testWord = argv[2];
+
     DocParser theDoc;
-    theDoc.setDirectoryHead("/home/student/Desktop/smalljson/");
+    theDoc.setDirectoryHead(dir_path);
     theDoc.readFiles();
 
     return 0;

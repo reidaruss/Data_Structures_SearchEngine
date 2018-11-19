@@ -73,8 +73,8 @@ void DocParser::parse(char* FILENAME){
     //Test access to mapped file
     Document d;
     d.Parse(map);
-    Value& sha = d["sha1"];
-    //cout << '\t' << filesProcessed << '\t' << sha.GetString() << endl;
+    Value& text = d["plain_text"];
+    cout << '\t' << filesProcessed << '\t' << text.GetString() << endl;
 
     //Un-memory map the file
     if (map == MAP_FAILED) {
