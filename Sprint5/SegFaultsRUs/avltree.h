@@ -1,5 +1,6 @@
 #ifndef AVLTREE_H
 #define AVLTREE_H
+#include <string>
 
 using namespace std;
 
@@ -10,12 +11,12 @@ private:
     class AVLNode
     {
     public:
-        int element;
+        string element; //changed to string
         AVLNode *left;
         AVLNode *right;
         int height;
 
-        AVLNode(const int & theElement, AVLNode *It, AVLNode *rt, int h = 0):element(theElement),left(It),right(rt),height(h){}
+        AVLNode(const string & theElement, AVLNode *It, AVLNode *rt, int h = 0):element(theElement),left(It),right(rt),height(h){}
     };
 
     AVLNode *root;
@@ -24,10 +25,10 @@ public:
     AVLTree():root(nullptr){}
     AVLTree(const AVLTree& rhs):root(nullptr){*this = rhs;}
 
-    ~AvlTree()
-    {
-        makeEmpty();
-    }
+//    ~AvlTree()
+//    {
+//        makeEmpty();
+//    }
 
     /*
      * Find the smallest item in the tree.
@@ -36,7 +37,7 @@ public:
     const int & findMin() const
     {
         if(isEmpty())
-            throw UnderflowException();
+            //throw UnderflowException();
         return findMin(root)->element;
     }
 
@@ -47,7 +48,7 @@ public:
     const int& findMax() const
     {
         if(isEmpty())
-            throw UnderflowException();
+            //throw UnderflowException();
         return findMax(root)->element;
     }
 
@@ -69,7 +70,7 @@ public:
     }
 
     /*
-     * make the tree logically emoty
+     * make the tree logically empty
      */
     void makeEmpty()
     {
@@ -80,7 +81,7 @@ public:
      * insert x into the tree;
      * duplicates are ignored
      */
-    void insert(const int& x)
+    void insert(const string& x)
     {
         insert(x, root);
     }
@@ -106,7 +107,7 @@ private:
      * t is the node that roots the subtree
      * set the new root of the subtree
      */
-    void insert(const int& x, AVLNode*& t)
+    void insert(const string& x, AVLNode*& t)
     {
         if( t == nullptr)
             t = new AVLNode(x, nullptr, nullptr);
@@ -157,14 +158,14 @@ private:
      * for AVL trees, this is a single rotation for case 4
      * update heights, then set new root
      */
-    void rotateWithRightChild(AVLNode*& k1)
+    void rotateWithRightChild(AVLNode*& k2)
     {
-        AVLNode* k2 = k1->left;
-        k1->left = k2->right;
-        k2->right = k1;
-        k1->height = max(height(k1->left), height(k1->right)) + 1;
-        k2->height = max(height(k2->left), k1->height) + 1;
-        k1 = k2;
+        AVLNode* k1 = k2->right;
+        k2->right = k1->left;
+        k1->left = k2;
+        k1->height = max(height(k2->right), height(k2->left)) + 1;
+        k2->height = max(height(k1->right), k2->height) + 1;
+        k2 = k1;
     }
 
     /*

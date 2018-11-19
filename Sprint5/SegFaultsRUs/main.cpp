@@ -2,6 +2,7 @@
 #include <string>
 #include <dirent.h>
 #include "docparser.h"
+#include "avltree.h"
 
 //MEMORY MAPPING
 #include <stdio.h>
@@ -23,7 +24,7 @@ using namespace rapidjson;
 int main(int argc, char *argv[])
 {
     DocParser theDoc;
-    theDoc.setDirectoryHead("/home/student/Desktop/largeJSONtest/");
+    theDoc.setDirectoryHead("/home/student/Desktop/smalljson/");
     theDoc.readFiles();
 
     return 0;
