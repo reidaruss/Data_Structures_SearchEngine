@@ -20,9 +20,10 @@ private:
     };
 
     AVLNode *root;
+    int size;
 
 public:
-    AVLTree():root(nullptr){}
+    AVLTree():root(nullptr){size = 0;}
     AVLTree(const AVLTree& rhs):root(nullptr){*this = rhs;}
 
 //    ~AvlTree()
@@ -86,6 +87,11 @@ public:
         insert(x, root);
     }
 
+    int getSize()
+    {
+        return size;
+    }
+
 private:
 
     /*
@@ -110,7 +116,10 @@ private:
     void insert(const string& x, AVLNode*& t)
     {
         if( t == nullptr)
+        {
             t = new AVLNode(x, nullptr, nullptr);
+            size ++;
+        }
         else if(x < t->element)
         {
             insert(x, t->left);

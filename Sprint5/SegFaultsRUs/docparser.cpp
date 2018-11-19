@@ -3,6 +3,10 @@
 #include <string>
 #include <dirent.h>
 #include "docparser.h"
+#include "avltree.h"
+#include <vector>
+#include <sstream>
+#include <cstdlib>
 //MEMORY MAPPING
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,6 +29,9 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 
+//HTML INCLUDES
+
+
 using namespace std;
 using namespace rapidjson;
 
@@ -36,12 +43,19 @@ void DocParser::processData(){
 
 }
 void DocParser::readFiles(){
+    vector<string> v;
+    v.push_back("95882.json");
+    v.push_back("106440.json");
+    v.push_back("145708.json");
     DIR *directory = opendir(directoryHead);
     struct dirent *dir;
     while(((dir = readdir(directory)) != NULL)){
-        if(dir->d_type == 0x8){
+        if((dir->d_type == 0x8)
+            && (dir->d_name != v[0])
+            && (dir->d_name != v[1])
+            && (dir->d_name != v[2])){
             filesProcessed++;
-            cout << dir->d_name << "|";
+            //cout << dir->d_name << "|";
             parse(dir->d_name);
         }
     }
@@ -49,6 +63,7 @@ void DocParser::readFiles(){
 }
 
 void DocParser::parse(char* FILENAME){
+
     string str1 = directoryHead;
     string str2 = FILENAME;
     string path = str1+str2;
@@ -74,7 +89,7 @@ void DocParser::parse(char* FILENAME){
     Document d;
     d.Parse(map);
     Value& text = d["plain_text"];
-    cout << '\t' << filesProcessed << '\t' << text.GetString() << endl;
+    //cout << '\t' << filesProcessed << '\t'  << endl;
 
     //Un-memory map the file
     if (map == MAP_FAILED) {
@@ -86,9 +101,16 @@ void DocParser::parse(char* FILENAME){
         perror("Error un-mmapping the file");
     }
     close(fd);
+
+
 }
 
 void DocParser::setDirectoryHead(char* headToSet){
     directoryHead = headToSet;
+}
+
+int DocParser::getFP()
+{
+    return filesProcessed;
 }
 

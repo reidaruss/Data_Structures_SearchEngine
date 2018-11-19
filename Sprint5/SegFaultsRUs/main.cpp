@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
     DocParser theDoc;
     theDoc.setDirectoryHead(dir_path);
     theDoc.readFiles();
+    cout << "Number of Files Processed: " << theDoc.getFP() << endl;
 
     return 0;
 }
