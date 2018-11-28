@@ -7,7 +7,8 @@ SOURCES += \
         main.cpp \
     docparser.cpp \
     queryprocessor.cpp \
-    userinterface.cpp
+    userinterface.cpp \
+    hashtable.cpp
 
 HEADERS += \
     index.h \
@@ -15,4 +16,5 @@ HEADERS += \
     docparser.h \
     queryprocessor.h \
     userinterface.h \
-    avltree.h
+    avltree.h \
+    hashtable.h
