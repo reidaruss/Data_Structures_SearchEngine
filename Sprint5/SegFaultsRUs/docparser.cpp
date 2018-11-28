@@ -7,6 +7,7 @@
 #include <vector>
 #include <sstream>
 #include <cstdlib>
+#include <algorithm>
 //MEMORY MAPPING
 #include <stdio.h>
 #include <stdlib.h>
@@ -90,6 +91,46 @@ void DocParser::parse(char* FILENAME){
     d.Parse(map);
     Value& text = d["plain_text"];
     //cout << '\t' << filesProcessed << '\t'  << endl;
+
+    ///////////
+    StringBuffer buf;
+            Writer<StringBuffer> writer(buf);
+            d.Accept(writer);
+            string temp = buf.GetString();
+            //cout << temp << endl << endl << endl;
+
+
+                temp.erase(remove(temp.begin(), temp.end(), '('), temp.end() ); //Reference I used to remove specific characters : https://stackoverflow.com/questions/20326356/how-to-remove-all-the-occurrences-of-a-char-in-c-string
+                temp.erase(remove(temp.begin(), temp.end(), ')'), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), '['), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), ']'), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), '\''), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), '\"'), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), '<'), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), '>'), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), '.'), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), '/'), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), ','), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), ':'), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), '{'), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), '}'), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), '*'), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), ';'), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), '-'), temp.end() );
+                temp.erase(remove(temp.begin(), temp.end(), '_'), temp.end() );
+
+
+            HashTable table(500000);
+            string tempstr = "";
+            istringstream str(temp);
+            while(getline(str,tempstr, ' '))
+            {
+                table.insert(tempstr, "11");
+            }
+
+            table.displayHash();
+
+    //////////////////
 
     //Un-memory map the file
     if (map == MAP_FAILED) {
