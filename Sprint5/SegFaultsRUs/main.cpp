@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include "userinterface.h"
 
 //JSON PARSING
 #include "rapidjson/document.h"
@@ -34,13 +35,15 @@ int main(int argc, char *argv[])
 //        h.insert(a[i],b[i]);
 
 //    h.displayHash();
-    char* dir_path = argv[1];
-    string testWord = argv[2];
+//    char* dir_path = argv[1];
+//    string testWord = argv[2];
 
-    DocParser theDoc;
-    theDoc.setDirectoryHead(dir_path);
-    theDoc.readFiles();
-    cout << "Number of Files Processed: " << theDoc.getFP() << endl;
+//    DocParser theDoc;
+//    theDoc.setDirectoryHead(dir_path);
+//    theDoc.readFiles();
+//    cout << "Number of Files Processed: " << theDoc.getFP() << endl;
+
+    UserInterface ui;
 
     return 0;
 }

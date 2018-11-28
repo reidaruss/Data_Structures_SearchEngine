@@ -1,15 +1,13 @@
 #include "hashtable.h"
-<<<<<<< HEAD
 //The link below is what I referenced for this hash table, however I have heavily modified it to handle strings and changed the container to a node
 //https://www.geeksforgeeks.org/c-program-hashing-chaining/
-=======
+
 
 HashTable::HashTable()
 {
 
 }
 
->>>>>>> indexinterface
 HashTable::HashTable(int v)
 {
     this->bucket = v;
@@ -69,7 +67,6 @@ void HashTable::displayHash()
     {
         if(table[i].size() != 0)
         {
-
             cout << i;
             list<HashNode>::iterator ci;
             for(ci = table[i].begin(); ci != table[i].end(); ci++)
@@ -79,8 +76,6 @@ void HashTable::displayHash()
             }
             cout << endl;
         }
-
     }
 }
-
 
