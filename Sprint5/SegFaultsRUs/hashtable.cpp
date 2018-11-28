@@ -1,5 +1,6 @@
 #include "hashtable.h"
-
+//The link below is what I referenced for this hash table, however I have heavily modified it to handle strings and changed the container to a node
+//https://www.geeksforgeeks.org/c-program-hashing-chaining/
 HashTable::HashTable(int v)
 {
     this->bucket = v;
@@ -64,7 +65,7 @@ void HashTable::displayHash()
             list<HashNode>::iterator ci;
             for(ci = table[i].begin(); ci != table[i].end(); ci++)
             {
-                cout << " --> " << ci->getKey() << ": ";
+                cout << " -> " << ci->getKey() << ": ";
                 ci->printDocs();
             }
             cout << endl;
