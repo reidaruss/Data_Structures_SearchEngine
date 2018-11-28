@@ -38,6 +38,14 @@ public:
             return false;
     }
 
+    void printDocs()
+    {
+        for(int i = 0; i < docs.size() - 1; i ++)
+            cout << docs[i] << " -->";
+        cout << docs[docs.size()-1];
+
+    }
+
 };
 
 class HashTable

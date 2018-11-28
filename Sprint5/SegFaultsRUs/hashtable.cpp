@@ -17,21 +17,27 @@ int HashTable::hashFunction(const string& x)
 void HashTable::insert(string x, string d)  //x is the key, d is the doc. need to add a doc string var in parser to keep track of when doc changes
 {
     int index = hashFunction(x);
-    list<HashNode>::iterator ci;
-    for(ci = table[index].begin(); ci != table[index].end(); ci++)
+    if(table[index].size() != 0)
     {
-        if(ci->getKey() == x)
+        list<HashNode>::iterator ci;
+        for(ci = table[index].begin(); ci != table[index].end(); ci++)
         {
-            if(ci->checkDocs(d) == false)
+            if(ci->getKey() == x)
             {
-                ci->pushBack(d);
-                break;
+                if(ci->checkDocs(d) == false)
+                {
+                    ci->pushBack(d);
+                    break;
+                }
+                return;
             }
-            return;
         }
     }
-    HashNode temp(x,d);
-    table[index].push_back(temp);
+    else
+    {
+        HashNode temp(x,d);
+        table[index].push_back(temp);
+    }
 }
 
 //void HashTable::remove(string key)
@@ -58,7 +64,8 @@ void HashTable::displayHash()
             list<HashNode>::iterator ci;
             for(ci = table[i].begin(); ci != table[i].end(); ci++)
             {
-                cout << " --> " << ci->getKey();
+                cout << " --> " << ci->getKey() << ": ";
+                ci->printDocs();
             }
             cout << endl;
         }
