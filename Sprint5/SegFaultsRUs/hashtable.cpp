@@ -1,6 +1,15 @@
 #include "hashtable.h"
+<<<<<<< HEAD
 //The link below is what I referenced for this hash table, however I have heavily modified it to handle strings and changed the container to a node
 //https://www.geeksforgeeks.org/c-program-hashing-chaining/
+=======
+
+HashTable::HashTable()
+{
+
+}
+
+>>>>>>> indexinterface
 HashTable::HashTable(int v)
 {
     this->bucket = v;

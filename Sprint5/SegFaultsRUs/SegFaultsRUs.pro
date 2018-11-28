@@ -8,13 +8,19 @@ SOURCES += \
     docparser.cpp \
     queryprocessor.cpp \
     userinterface.cpp \
-    hashtable.cpp
+    hashtable.cpp \
+    indexinterface.cpp \
+    htindex.cpp \
+    avlindex.cpp \
+
 
 HEADERS += \
-    index.h \
-    indexhandler.h \
     docparser.h \
     queryprocessor.h \
     userinterface.h \
     avltree.h \
-    hashtable.h
+    hashtable.h \
+    indexinterface.h \
+    htindex.h \
+    avlindex.h \
+
