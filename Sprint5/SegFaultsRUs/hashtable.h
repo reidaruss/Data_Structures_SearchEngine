@@ -6,6 +6,7 @@
 #include <vector>
 #include <functional>
 
+
 using namespace std;
 
 class HashNode
@@ -56,6 +57,7 @@ private:
     int bucket; //Number of buckets
     list<HashNode> *table; //pointer to an array containing buckets
 public:
+    HashTable();
     HashTable(int v);
     void insert(string x, string d); //insert
     void remove(string key);   //removes a key from hash table

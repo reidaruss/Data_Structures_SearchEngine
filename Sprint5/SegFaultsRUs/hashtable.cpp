@@ -1,5 +1,10 @@
 #include "hashtable.h"
 
+HashTable::HashTable()
+{
+
+}
+
 HashTable::HashTable(int v)
 {
     this->bucket = v;

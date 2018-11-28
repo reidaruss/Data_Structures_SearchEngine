@@ -9,14 +9,14 @@ SOURCES += \
     queryprocessor.cpp \
     userinterface.cpp \
     hashtable.cpp \
-    indexinterface.cpp
+    indexinterface.cpp \
+    htindex.cpp
 
 HEADERS += \
-    index.h \
-    indexhandler.h \
     docparser.h \
     queryprocessor.h \
     userinterface.h \
     avltree.h \
     hashtable.h \
-    indexinterface.h
+    indexinterface.h \
+    htindex.h
