@@ -9,7 +9,8 @@ SOURCES += \
     queryprocessor.cpp \
     userinterface.cpp \
     hashtable.cpp \
-    indexinterface.cpp
+    indexinterface.cpp \
+    avlindex.cpp
 
 HEADERS += \
     index.h \
@@ -19,4 +20,5 @@ HEADERS += \
     userinterface.h \
     avltree.h \
     hashtable.h \
-    indexinterface.h
+    indexinterface.h \
+    avlindex.h
