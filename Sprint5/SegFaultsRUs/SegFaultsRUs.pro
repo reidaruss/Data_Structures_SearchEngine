@@ -10,7 +10,9 @@ SOURCES += \
     userinterface.cpp \
     hashtable.cpp \
     indexinterface.cpp \
-    htindex.cpp
+    htindex.cpp \
+    avlindex.cpp \
+
 
 HEADERS += \
     docparser.h \
@@ -19,4 +21,6 @@ HEADERS += \
     avltree.h \
     hashtable.h \
     indexinterface.h \
-    htindex.h
+    htindex.h \
+    avlindex.h \
+
