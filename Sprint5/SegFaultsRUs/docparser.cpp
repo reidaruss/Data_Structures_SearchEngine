@@ -92,45 +92,55 @@ void DocParser::parse(char* FILENAME){
     Value& text = d["plain_text"];
     //cout << '\t' << filesProcessed << '\t'  << endl;
 
-    ///////////
+    //BELOW IS THE TEMPORARY SPECIAL CHARACTER REMOVAL AND INSERTION INTO AVLTREE USING GETLINE AND SPACE AS A DELIMITER
     StringBuffer buf;
-            Writer<StringBuffer> writer(buf);
-            d.Accept(writer);
-            string temp = buf.GetString();
-            //cout << temp << endl << endl << endl;
+    Writer<StringBuffer> writer(buf);
+    d.Accept(writer);
+    string temp = buf.GetString();
+    //cout << temp << endl << endl << endl;
 
 
-                temp.erase(remove(temp.begin(), temp.end(), '('), temp.end() ); //Reference I used to remove specific characters : https://stackoverflow.com/questions/20326356/how-to-remove-all-the-occurrences-of-a-char-in-c-string
-                temp.erase(remove(temp.begin(), temp.end(), ')'), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), '['), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), ']'), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), '\''), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), '\"'), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), '<'), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), '>'), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), '.'), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), '/'), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), ','), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), ':'), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), '{'), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), '}'), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), '*'), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), ';'), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), '-'), temp.end() );
-                temp.erase(remove(temp.begin(), temp.end(), '_'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), '('), temp.end() ); //Reference I used to remove specific characters : https://stackoverflow.com/questions/20326356/how-to-remove-all-the-occurrences-of-a-char-in-c-string
+        temp.erase(remove(temp.begin(), temp.end(), ')'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), '['), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), ']'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), '\''), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), '\"'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), '<'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), '>'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), '.'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), '/'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), ','), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), ':'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), '{'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), '}'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), '*'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), ';'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), '-'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), '_'), temp.end() );
 
 
-            HashTable table(500000);
-            string tempstr = "";
-            istringstream str(temp);
-            while(getline(str,tempstr, ' '))
-            {
-                table.insert(tempstr, "11");
-            }
+//    AVLTree<string> tree;
+//    string tempstr = "";
+//    istringstream str(temp);
+//    while(getline(str,tempstr, ' '))
+//    {
+//        tree.insert(tempstr);
+//    }
 
-            table.displayHash();
+        HashTable table(500000);
+        string tempstr = "";
+        istringstream str(temp);
+        while(getline(str,tempstr, ' '))
+        {
+            table.insert(tempstr, "11");
+        }
 
-    //////////////////
+        table.displayHash();
+
+//ABOVE IS THE TEMPORARY SPECIAL CHARACTER REMOVAL AND INSERTION INTO AVLTREE USING GETLINE AND SPACE AS A DELIMITER
+//////////////////////////////////////////////
+
 
     //Un-memory map the file
     if (map == MAP_FAILED) {
