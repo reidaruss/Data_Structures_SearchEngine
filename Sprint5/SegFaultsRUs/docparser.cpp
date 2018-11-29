@@ -120,23 +120,23 @@ void DocParser::parse(char* FILENAME){
         temp.erase(remove(temp.begin(), temp.end(), '_'), temp.end() );
 
 
-//    AVLTree<string> tree;
-//    string tempstr = "";
-//    istringstream str(temp);
-//    while(getline(str,tempstr, ' '))
-//    {
-//        tree.insert(tempstr);
-//    }
+    AVLTree<string> tree;
+    string tempstr = "";
+    istringstream str(temp);
+    while(getline(str,tempstr, ' '))
+    {
+        tree.insert(tempstr);
+    }
 
-        HashTable table(500000);
-        string tempstr = "";
-        istringstream str(temp);
-        while(getline(str,tempstr, ' '))
-        {
-            table.insert(tempstr, "11");
-        }
+//        HashTable table(500000);
+//        string tempstr = "";
+//        istringstream str(temp);
+//        while(getline(str,tempstr, ' '))
+//        {
+//            table.insert(tempstr, "11");
+//        }
 
-        table.displayHash();
+//        table.displayHash();
 
 //ABOVE IS THE TEMPORARY SPECIAL CHARACTER REMOVAL AND INSERTION INTO AVLTREE USING GETLINE AND SPACE AS A DELIMITER
 //////////////////////////////////////////////
