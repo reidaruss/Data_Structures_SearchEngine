@@ -3,6 +3,7 @@
 #include "hashtable.h"
 #include <string>
 #include <vector>
+#include "indexinterface.h"
 
 using namespace std;
 
@@ -11,8 +12,8 @@ class DocParser
 public:
     DocParser();
     void processData();
-    void readFiles();
-    void parse(char* FILENAME);
+    void readFiles(IndexInterface * index);
+    void parse(char* FILENAME, IndexInterface * index);
 
     void setDirectoryHead(char* headToSet);
 

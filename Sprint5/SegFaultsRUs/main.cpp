@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 //    theDoc.readFiles();
 //    cout << "Number of Files Processed: " << theDoc.getFP() << endl;
 
-    UserInterface ui;
+    UserInterface ui(argv[1]);
 
     return 0;
 }

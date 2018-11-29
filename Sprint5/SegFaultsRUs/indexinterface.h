@@ -1,14 +1,16 @@
 //Reid Russell
 #ifndef INDEXINTERFACE_H
 #define INDEXINTERFACE_H
+#include <string>
 
+using namespace std;
 
 class IndexInterface
 {
 public:
     IndexInterface();
-    virtual void createIndex() = 0;
-    virtual void searchIndex() = 0;
+    virtual void searchIndex(string s) = 0;
+    virtual void insertI(string s, string d) = 0;
 
 };
 

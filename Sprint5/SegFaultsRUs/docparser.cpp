@@ -43,7 +43,7 @@ DocParser::DocParser(){
 void DocParser::processData(){
 
 }
-void DocParser::readFiles(){
+void DocParser::readFiles(IndexInterface * index){
     vector<string> v;
     v.push_back("95882.json");
     v.push_back("106440.json");
@@ -57,13 +57,13 @@ void DocParser::readFiles(){
             && (dir->d_name != v[2])){
             filesProcessed++;
             //cout << dir->d_name << "|";
-            parse(dir->d_name);
+            parse(dir->d_name, index);
         }
     }
     closedir(directory);
 }
 
-void DocParser::parse(char* FILENAME){
+void DocParser::parse(char* FILENAME, IndexInterface * index){
 
     string str1 = directoryHead;
     string str2 = FILENAME;
@@ -120,23 +120,15 @@ void DocParser::parse(char* FILENAME){
         temp.erase(remove(temp.begin(), temp.end(), '_'), temp.end() );
 
 
-//    AVLTree<string> tree;
-//    string tempstr = "";
-//    istringstream str(temp);
-//    while(getline(str,tempstr, ' '))
-//    {
-//        tree.insert(tempstr);
-//    }
 
-        HashTable table(500000);
         string tempstr = "";
         istringstream str(temp);
         while(getline(str,tempstr, ' '))
         {
-            table.insert(tempstr, "11");
+            index->insertI(tempstr, "11");
         }
 
-        table.displayHash();
+
 
 //ABOVE IS THE TEMPORARY SPECIAL CHARACTER REMOVAL AND INSERTION INTO AVLTREE USING GETLINE AND SPACE AS A DELIMITER
 //////////////////////////////////////////////

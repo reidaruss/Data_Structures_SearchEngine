@@ -1,11 +1,11 @@
 #include "userinterface.h"
 
-UserInterface::UserInterface()
+UserInterface::UserInterface(char *filepath)
 {
-    init();
+    init(filepath);
 }
 
-void UserInterface::init()
+void UserInterface::init(char * filepath)
 {
     int indexType;
     cout << "Choose Index Type. (1 for AVLIndex, 2 for HashTableIndex)" << endl;
@@ -13,6 +13,22 @@ void UserInterface::init()
     if(indexType != 1 && indexType != 2)
     {
         cerr << "Invalid Entry." << endl;
-        init();
+        init(filepath);
     }
+
+    IndexInterface * index;
+
+    if(indexType == 1)
+    {
+        index = new avlindex;
+    }
+    else if(indexType == 2)
+    {
+        index = new htindex;
+    }
+    DocParser parse;
+    parse.setDirectoryHead(filepath);
+    parse.readFiles(index);
+
+
 }
