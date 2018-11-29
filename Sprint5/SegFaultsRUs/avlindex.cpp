@@ -5,12 +5,18 @@ avlindex::avlindex()
 
 }
 
-void avlindex::createIndex()
-{
-
-}
 
 void avlindex::searchIndex(string s)
 {
 
+}
+
+void avlindex::insertI(string s, string d)
+{
+    tree.insert(s);
+}
+
+void avlindex::displayI()
+{
+//display something
 }

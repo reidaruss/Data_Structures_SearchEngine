@@ -12,8 +12,9 @@ private:
     HashTable * ht;
 public:
     htindex();
-    void createIndex();
     void searchIndex(string s);
+    void insertI(string s, string d);
+    void displayI();
 };
 
 #endif // HTINDEX_H

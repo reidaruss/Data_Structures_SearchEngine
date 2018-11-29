@@ -7,12 +7,17 @@ htindex::htindex()
     ht = new HashTable(500000);
 }
 
-void htindex::createIndex()
+void htindex::searchIndex(string s)
 {
 
 }
 
-void htindex::searchIndex(string s)
+void htindex::insertI(string s, string d)
 {
+    ht->insert(s,d);
+}
 
+void htindex::displayI()
+{
+    ht->displayHash();
 }

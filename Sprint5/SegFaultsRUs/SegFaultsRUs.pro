@@ -9,9 +9,9 @@ SOURCES += \
     queryprocessor.cpp \
     userinterface.cpp \
     hashtable.cpp \
-    indexinterface.cpp \
     htindex.cpp \
     avlindex.cpp \
+    indexinterface.cpp
 
 
 HEADERS += \

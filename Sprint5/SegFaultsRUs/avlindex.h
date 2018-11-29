@@ -6,11 +6,12 @@
 class avlindex : public IndexInterface
 {
 private:
-    AVLTree<string> avlI;
+    AVLTree<string> tree;
 public:
     avlindex();
-    void createIndex();
+    void insertI(string s, string d);
     void searchIndex(string s);
+    void displayI();
 
 };
 
