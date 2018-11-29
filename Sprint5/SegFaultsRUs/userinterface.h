@@ -13,9 +13,12 @@ class UserInterface
 private:
     int filesParsed;
     IndexInterface * index;
+    char * filepath;
 public:
-    UserInterface(char * filepath);
-    void init(char *filepath);
+    UserInterface(char * file);
+    void start();
+    void maintenance();
+    void init();
     void menu();
 };
 
