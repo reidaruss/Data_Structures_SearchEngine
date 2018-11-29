@@ -172,8 +172,8 @@ private:
         AVLNode* k1 = k2->right;
         k2->right = k1->left;
         k1->left = k2;
-        k1->height = max(height(k2->right), height(k2->left)) + 1;
-        k2->height = max(height(k1->right), k2->height) + 1;
+        k2->height = max(height(k2->right), height(k2->left)) + 1;
+        k1->height = max(height(k1->right), k2->height) + 1;
         k2 = k1;
     }
 

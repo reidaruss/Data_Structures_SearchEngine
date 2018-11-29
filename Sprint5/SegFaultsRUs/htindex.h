@@ -14,6 +14,7 @@ public:
     htindex();
     void searchIndex(string s);
     void insertI(string s, string d);
+    void displayI();
 };
 
 #endif // HTINDEX_H

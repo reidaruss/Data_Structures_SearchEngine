@@ -16,3 +16,8 @@ void htindex::insertI(string s, string d)
 {
     ht->insert(s,d);
 }
+
+void htindex::displayI()
+{
+    ht->displayHash();
+}

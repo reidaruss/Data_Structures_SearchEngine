@@ -99,7 +99,6 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     string temp = buf.GetString();
     //cout << temp << endl << endl << endl;
 
-
         temp.erase(remove(temp.begin(), temp.end(), '('), temp.end() ); //Reference I used to remove specific characters : https://stackoverflow.com/questions/20326356/how-to-remove-all-the-occurrences-of-a-char-in-c-string
         temp.erase(remove(temp.begin(), temp.end(), ')'), temp.end() );
         temp.erase(remove(temp.begin(), temp.end(), '['), temp.end() );
@@ -118,7 +117,8 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
         temp.erase(remove(temp.begin(), temp.end(), ';'), temp.end() );
         temp.erase(remove(temp.begin(), temp.end(), '-'), temp.end() );
         temp.erase(remove(temp.begin(), temp.end(), '_'), temp.end() );
-
+        temp.erase(remove(temp.begin(), temp.end(), '\\'), temp.end() );
+        temp.erase(remove(temp.begin(), temp.end(), '='), temp.end() );
 
 
         string tempstr = "";

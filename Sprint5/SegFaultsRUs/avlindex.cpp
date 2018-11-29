@@ -15,3 +15,8 @@ void avlindex::insertI(string s, string d)
 {
     tree.insert(s);
 }
+
+void avlindex::displayI()
+{
+//display something
+}

@@ -11,6 +11,7 @@ public:
     avlindex();
     void insertI(string s, string d);
     void searchIndex(string s);
+    void displayI();
 
 };
 
