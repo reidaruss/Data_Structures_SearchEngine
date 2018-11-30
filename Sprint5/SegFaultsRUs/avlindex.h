@@ -14,6 +14,7 @@ public:
     void searchIndex(string s);
     void displayI();
     int getUWords();
+    bool isEmpty();
 
 };
 

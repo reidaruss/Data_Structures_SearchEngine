@@ -39,6 +39,8 @@ public:
     int hashFunction(const string &x); //hash function to map values to key
     void displayHash();
     int getnumWords();
+    void clear();
+    bool isEmpty();
 };
 
 

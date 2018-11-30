@@ -121,3 +121,18 @@ void HashNode::printDocs()
     cout << docs[docs.size()-1];
 
 }
+
+void HashTable::clear()
+{
+    table->clear();
+    bucket = 0;
+    numWords = 0;
+}
+
+bool HashTable::isEmpty()
+{
+    if(numWords ==0)
+        return true;
+    else
+        return false;
+}

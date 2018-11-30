@@ -8,6 +8,9 @@
 #include "avlindex.h"
 #include "htindex.h"
 #include <algorithm>
+#include <bits/stdc++.h>
+#include <string>
+#include <stdio.h>
 
 class UserInterface
 {
@@ -15,8 +18,9 @@ private:
     int filesParsed;
     IndexInterface * index;
     char * filepath;
+    int indexType;
 public:
-    UserInterface(char * file);
+    UserInterface();
     void start();
     void maintenance();
     void init();

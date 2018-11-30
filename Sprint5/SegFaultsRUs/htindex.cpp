@@ -26,3 +26,8 @@ int htindex::getUWords()
 {
     return ht->getnumWords();
 }
+
+bool htindex::isEmpty()
+{
+    return ht->isEmpty();
+}

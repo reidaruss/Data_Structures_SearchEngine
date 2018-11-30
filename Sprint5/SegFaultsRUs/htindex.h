@@ -16,6 +16,7 @@ public:
     void insertI(string s, string d);
     void displayI();
     int getUWords();
+    bool isEmpty();
 };
 
 #endif // HTINDEX_H

@@ -68,7 +68,8 @@ public:
      */
     bool isEmpty() const
     {
-        return root == NULL;
+        if(size == 0)
+            return true;
     }
 
     /*

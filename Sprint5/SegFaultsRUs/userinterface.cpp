@@ -1,22 +1,21 @@
 #include "userinterface.h"
 
-UserInterface::UserInterface(char *file)
+UserInterface::UserInterface()
 {
     filesParsed = 0;
-    filepath = file;
-    start();
+    indexType = 0;
+    cout << "Welcome to SCOTUS Opinion Search Engine." << endl;
 }
 
 void UserInterface::start()
 {
     int choice = 0;
-    cout << "Welcome to SCOTUS Opinion Search Engine." << endl;
     cout << "Please enter 1 for maintenance mode or 2 for interactive mode." << endl;
     cin >> choice;
     if(choice == 1)
         maintenance();
     else if(choice == 2)
-        init();
+        menu();
     else
     {
         cerr << "Invalid entry." << endl;
@@ -29,16 +28,16 @@ void UserInterface::start()
 void UserInterface::maintenance()
 {
     string uIn = "";
-    cout << "____________________________________________" << endl;
-    cout << "|              MAINTENANCE MENU            |" << endl;
-    cout << "|__________________________________________|" << endl;
-    cout << "|OPTION: | Exit | Add Opinion | Clear Index|" << endl;
-    cout << "|--------|------|-------------|------------|" << endl;
-    cout << "|COMMAND:| exit |    ao       |     ci     |" << endl;
-    cout << "|------------------------------------------|" << endl;
-    cout << "|DESCRIPTION: Add -d to a command to get a |" << endl;
-    cout << "|description of that command. (ex: ao-d)   |" << endl;
-    cout << "|__________________________________________|" << endl << endl;
+    cout << "_______________________________________________________________" << endl;
+    cout << "|                         MAINTENANCE MENU                    |" << endl;
+    cout << "|_____________________________________________________________|" << endl;
+    cout << "|OPTION: | Exit | Interactive Menu | Add Opinion | Clear Index|" << endl;
+    cout << "|--------|------|------------------|--------------------------|" << endl;
+    cout << "|COMMAND:| exit |      int         |   ao        |     ci     |" << endl;
+    cout << "|-------------------------------------------------------------|" << endl;
+    cout << "|DESCRIPTION: Add -d to a command to get a                    |" << endl;
+    cout << "|description of that command. (ex: ao-d)                      |" << endl;
+    cout << "|_____________________________________________________________|" << endl << endl;
     cin >> uIn;
     transform(uIn.begin(), uIn.end(), uIn.begin(), ::tolower);
     if(uIn == "exit")
@@ -50,6 +49,53 @@ void UserInterface::maintenance()
         cout << "exit: Closes the program." << endl;
         maintenance();
     }
+    else if(uIn == "int")
+    {
+        menu();
+    }
+    else if(uIn == "ci")
+    {
+        if(filesParsed == 0)
+        {
+            cout << "Index already empty. Please add opinions." << endl;
+            maintenance();
+        }
+        else
+        {
+            //index->clear();
+            if(filesParsed == 0)
+            {
+                cout << "Index Cleared." << endl;
+                maintenance();
+            }
+            else
+            {
+                cerr << "Error Clearing Index.." << endl;
+                maintenance();
+            }
+
+        }
+    }
+    else if(uIn == "ao")
+    {
+        string file;
+        cout << "Please Enter A File Path: " ;
+        cin >> file;
+        if(filesParsed != 0)
+        {
+            delete filepath;
+            filepath = new char[file.length() + 1];
+            strcpy(filepath, file.c_str());
+            init();
+        }
+        else
+        {
+            filepath = new char[file.length() + 1];
+            strcpy(filepath, file.c_str());
+            init();
+        }
+
+    }
     else
     {
         cerr << "Invalid Entry." << endl;
@@ -59,15 +105,16 @@ void UserInterface::maintenance()
 
 void UserInterface::init()
 {
-    int indexType;
-    cout << "Choose Index Type. (1 for AVLIndex, 2 for HashTableIndex)" << endl;
-    cin >> indexType;
-    if(indexType != 1 && indexType != 2)
+    if(indexType == 0)
     {
-        cerr << "Invalid Entry." << endl;
-        init();
+        cout << "Choose Index Type. (1 for AVLIndex, 2 for HashTableIndex)" << endl;
+        cin >> indexType;
+        if(indexType != 1 && indexType != 2)
+        {
+            cerr << "Invalid Entry." << endl;
+            init();
+        }
     }
-
 
 
     if(indexType == 1)
@@ -83,38 +130,57 @@ void UserInterface::init()
     parse.readFiles(index);
     filesParsed = parse.getFP();
 
-    menu();
+    maintenance();
 
 }
 
 void UserInterface::menu()
 {
     string uIn = ""; //user input
-    cout << "_________________________________________________________" << endl;
-    cout << "|                  INTERACTIVE MENU                     |" << endl;
-    cout << "|_______________________________________________________|" << endl;
-    cout << "|OPTION: | Exit | Display Index | Number of Files Parsed|" << endl;
-    cout << "|--------|------|---------------|-----------------------|" << endl;
-    cout << "|COMMAND:| exit |    dindex     |         stats         |" << endl;
-    cout << "|-------------------------------------------------------|" << endl;
-    cout << "|DESCRIPTION: Add -d to a command to get a description  |" << endl;
-    cout << "|             of that command. (ex: stats-d)            |" << endl;
-    cout << "|_______________________________________________________|" << endl << endl;
+    cout << "____________________________________________________________________________" << endl;
+    cout << "|                               INTERACTIVE MENU                           |" << endl;
+    cout << "|__________________________________________________________________________|" << endl;
+    cout << "|OPTION: | Exit | Maintenance Menu | Display Index | Number of Files Parsed|" << endl;
+    cout << "|--------|------|------------------|---------------------------------------|" << endl;
+    cout << "|COMMAND:| exit |       maint      |    dindex     |         stats         |" << endl;
+    cout << "|--------------------------------------------------------------------------|" << endl;
+    cout << "|DESCRIPTION: Add -d to a command to get a description                     |" << endl;
+    cout << "|             of that command. (ex: stats-d)                               |" << endl;
+    cout << "|__________________________________________________________________________|" << endl << endl;
     cin >> uIn;
     transform(uIn.begin(), uIn.end(), uIn.begin(), ::tolower);
 
     if(uIn == "dindex")
     {
-        index->displayI();
-        menu();
+        if(filesParsed == 0)
+        {
+                cout << "Index is empty, please add opinions in the maintenance menu." << endl;
+                menu();
+        }
+        else
+        {
+          index->displayI();
+          menu();
+        }
 
+    }
+    else if(uIn == "maint")
+    {
+        maintenance();
     }
     else if(uIn == "stats")
     {
-
-        cout << "Number of files parsed: " << filesParsed << endl;
-        cout << "Number of unique words: " << index->getUWords() << endl;
-        menu();
+        if(filesParsed == 0)
+        {
+           cout << "Index is empty, please add opinions in the maintenance menu." << endl;
+           menu();
+        }
+        else
+         {
+            cout << "Number of files parsed: " << filesParsed << endl;
+            cout << "Number of unique words: " << index->getUWords() << endl;
+            menu();
+          }
     }
     else if(uIn == "exit")
         return;

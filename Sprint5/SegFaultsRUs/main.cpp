@@ -23,7 +23,7 @@
 using namespace std;
 using namespace rapidjson;
 
-int main(int argc, char *argv[])
+int main()
 {
 //    string a[] = {"hello","hello1","hello1","hello3","hello4","hello4"};
 //    string b[] = {"11","12","13","14","15","16"};
@@ -43,7 +43,9 @@ int main(int argc, char *argv[])
 //    theDoc.readFiles();
 //    cout << "Number of Files Processed: " << theDoc.getFP() << endl;
 
-    UserInterface ui(argv[1]);
+    UserInterface ui;
+    ui.start();
+
 
     return 0;
 }

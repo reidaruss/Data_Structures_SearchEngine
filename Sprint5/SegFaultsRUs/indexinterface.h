@@ -13,6 +13,7 @@ public:
     virtual void insertI(string s, string d) = 0;
     virtual void displayI() =0;
     virtual int getUWords() =0;
+    virtual bool isEmpty() = 0;
 
 };
 

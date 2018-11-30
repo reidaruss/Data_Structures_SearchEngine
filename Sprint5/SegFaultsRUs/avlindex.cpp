@@ -25,3 +25,8 @@ int avlindex::getUWords()
 {
     return tree.getSize();
 }
+
+bool avlindex::isEmpty()
+{
+    return tree.isEmpty();
+}
