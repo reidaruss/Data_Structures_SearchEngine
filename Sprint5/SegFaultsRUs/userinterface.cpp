@@ -113,6 +113,7 @@ void UserInterface::menu()
     {
 
         cout << "Number of files parsed: " << filesParsed << endl;
+        cout << "Number of unique words: " << index->getUWords() << endl;
         menu();
     }
     else if(uIn == "exit")
@@ -139,6 +140,3 @@ void UserInterface::menu()
     }
 
 }
-
-//make numfiles parsed data member in ui
-//make index a data member so dont have to keep passing it

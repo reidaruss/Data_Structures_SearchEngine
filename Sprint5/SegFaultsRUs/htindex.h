@@ -15,6 +15,7 @@ public:
     void searchIndex(string s);
     void insertI(string s, string d);
     void displayI();
+    int getUWords();
 };
 
 #endif // HTINDEX_H

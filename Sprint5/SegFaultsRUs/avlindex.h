@@ -1,3 +1,4 @@
+//Reid Russell
 #ifndef AVLINDEX_H
 #define AVLINDEX_H
 #include "indexinterface.h"
@@ -12,6 +13,7 @@ public:
     void insertI(string s, string d);
     void searchIndex(string s);
     void displayI();
+    int getUWords();
 
 };
 

@@ -20,3 +20,8 @@ void avlindex::displayI()
 {
 //display something
 }
+
+int avlindex::getUWords()
+{
+    return tree.getSize();
+}

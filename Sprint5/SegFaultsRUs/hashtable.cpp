@@ -12,6 +12,7 @@ HashTable::HashTable(int v)
 {
     this->bucket = v;
     table = new list<HashNode>[bucket];
+    numWords = 0;
 }
 
 int HashTable::hashFunction(const string& x)
@@ -40,11 +41,15 @@ void HashTable::insert(string x, string d)  //x is the key, d is the doc. need t
                 return;
             }
         }
+        HashNode temp(x,d);
+        table[index].push_back(temp);
+        numWords++;
     }
     else
     {
         HashNode temp(x,d);
         table[index].push_back(temp);
+        numWords++;
     }
 }
 
@@ -77,5 +82,10 @@ void HashTable::displayHash()
             cout << endl;
         }
     }
+    cout << "Number of unique words = " << numWords << endl;
 }
 
+int HashTable::getnumWords()
+{
+    return numWords;
+}

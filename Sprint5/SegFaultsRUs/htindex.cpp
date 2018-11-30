@@ -21,3 +21,8 @@ void htindex::displayI()
 {
     ht->displayHash();
 }
+
+int htindex::getUWords()
+{
+    return ht->getnumWords();
+}

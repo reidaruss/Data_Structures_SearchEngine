@@ -56,6 +56,7 @@ private:
 
     int bucket; //Number of buckets
     list<HashNode> *table; //pointer to an array containing buckets
+    int numWords; //number of unique words;
 public:
     HashTable();
     HashTable(int v);
@@ -63,6 +64,7 @@ public:
     void remove(string key);   //removes a key from hash table
     int hashFunction(const string &x); //hash function to map values to key
     void displayHash();
+    int getnumWords();
 };
 
 

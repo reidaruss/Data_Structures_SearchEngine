@@ -1,3 +1,4 @@
+//Alex
 #ifndef DOCPARSER_H
 #define DOCPARSER_H
 #include "hashtable.h"
