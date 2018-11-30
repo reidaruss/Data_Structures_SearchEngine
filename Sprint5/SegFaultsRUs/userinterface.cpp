@@ -29,17 +29,26 @@ void UserInterface::start()
 void UserInterface::maintenance()
 {
     string uIn = "";
-    cout << "___________________________________________" << endl;
-    cout << "               MAINTENANCE MENU" << endl;
-    cout << "___________________________________________" << endl;
-    cout << "OPTION: | Exit | Add Opinion | Clear Index |" << endl;
-    cout << "COMMAND:| exit |    ao       |     ci      |" <<endl;
-    cout << "________|______|_____________|_____________|" << endl << endl;
+    cout << "____________________________________________" << endl;
+    cout << "|              MAINTENANCE MENU            |" << endl;
+    cout << "|__________________________________________|" << endl;
+    cout << "|OPTION: | Exit | Add Opinion | Clear Index|" << endl;
+    cout << "|--------|------|-------------|------------|" << endl;
+    cout << "|COMMAND:| exit |    ao       |     ci     |" << endl;
+    cout << "|------------------------------------------|" << endl;
+    cout << "|DESCRIPTION: Add -d to a command to get a |" << endl;
+    cout << "|description of that command. (ex: ao-d)   |" << endl;
+    cout << "|__________________________________________|" << endl << endl;
     cin >> uIn;
     transform(uIn.begin(), uIn.end(), uIn.begin(), ::tolower);
     if(uIn == "exit")
     {
         return;
+    }
+    else if(uIn == "exit-d")
+    {
+        cout << "exit: Closes the program." << endl;
+        maintenance();
     }
     else
     {
@@ -81,12 +90,16 @@ void UserInterface::init()
 void UserInterface::menu()
 {
     string uIn = ""; //user input
-    cout << "________________________________________________________" << endl;
-    cout << "                           MENU" << endl;
-    cout << "________________________________________________________" << endl;
-    cout << "OPTION: | Exit | Display Index | Number of Files Parsed |" << endl;
-    cout << "COMMAND:| exit |    dindex     |         files          |" <<endl;
-    cout << "________|______|_______________|________________________|" << endl << endl;
+    cout << "_________________________________________________________" << endl;
+    cout << "|                  INTERACTIVE MENU                     |" << endl;
+    cout << "|_______________________________________________________|" << endl;
+    cout << "|OPTION: | Exit | Display Index | Number of Files Parsed|" << endl;
+    cout << "|--------|------|---------------|-----------------------|" << endl;
+    cout << "|COMMAND:| exit |    dindex     |         stats         |" << endl;
+    cout << "|-------------------------------------------------------|" << endl;
+    cout << "|DESCRIPTION: Add -d to a command to get a description  |" << endl;
+    cout << "|             of that command. (ex: stats-d)            |" << endl;
+    cout << "|_______________________________________________________|" << endl << endl;
     cin >> uIn;
     transform(uIn.begin(), uIn.end(), uIn.begin(), ::tolower);
 
@@ -96,7 +109,7 @@ void UserInterface::menu()
         menu();
 
     }
-    else if(uIn == "files")
+    else if(uIn == "stats")
     {
 
         cout << "Number of files parsed: " << filesParsed << endl;
@@ -104,6 +117,21 @@ void UserInterface::menu()
     }
     else if(uIn == "exit")
         return;
+    else if(uIn == "dindex-d")
+    {
+        cout << "dindex: Displays the Index." << endl;
+        menu();
+    }
+    else if(uIn == "stats-d")
+    {
+        cout << "stats: Displays the statistics of the search engine." << endl;
+        menu();
+    }
+    else if(uIn == "exit-d")
+    {
+        cout << "exit: Closes the program." << endl;
+        menu();
+    }
     else
     {
         cerr << "Invalid Entry." << endl;
