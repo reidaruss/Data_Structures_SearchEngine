@@ -11,6 +11,7 @@
 #include <bits/stdc++.h>
 #include <string>
 #include <stdio.h>
+#include "queryprocessor.h"
 
 class UserInterface
 {

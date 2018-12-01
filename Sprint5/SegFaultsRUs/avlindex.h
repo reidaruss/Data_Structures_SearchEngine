@@ -11,7 +11,7 @@ private:
 public:
     avlindex();
     void insertI(string s, string d);
-    void searchIndex(string s);
+    vector<string> searchIndex(vector<string> query);
     void displayI();
     int getUWords();
     bool isEmpty();

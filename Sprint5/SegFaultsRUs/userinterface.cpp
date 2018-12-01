@@ -137,16 +137,16 @@ void UserInterface::init()
 void UserInterface::menu()
 {
     string uIn = ""; //user input
-    cout << "____________________________________________________________________________" << endl;
-    cout << "|                               INTERACTIVE MENU                           |" << endl;
-    cout << "|__________________________________________________________________________|" << endl;
-    cout << "|OPTION: | Exit | Maintenance Menu | Display Index | Number of Files Parsed|" << endl;
-    cout << "|--------|------|------------------|---------------------------------------|" << endl;
-    cout << "|COMMAND:| exit |       maint      |    dindex     |         stats         |" << endl;
-    cout << "|--------------------------------------------------------------------------|" << endl;
-    cout << "|DESCRIPTION: Add -d to a command to get a description                     |" << endl;
-    cout << "|             of that command. (ex: stats-d)                               |" << endl;
-    cout << "|__________________________________________________________________________|" << endl << endl;
+    cout << "_____________________________________________________" << endl;
+    cout << "|                 INTERACTIVE MENU                  |" << endl;
+    cout << "|___________________________________________________|" << endl;
+    cout << "|OPTION: | Exit | Maintenance Menu | Stats | Search |" << endl;
+    cout << "|--------|------|------------------|----------------|" << endl;
+    cout << "|COMMAND:| exit |       maint      | stats | search |" << endl;
+    cout << "|---------------------------------------------------|" << endl;
+    cout << "|DESCRIPTION: Add -d to a command to get a          |" << endl;
+    cout << "| description of that command. (ex: stats-d)        |" << endl;
+    cout << "|___________________________________________________|" << endl << endl;
     cin >> uIn;
     transform(uIn.begin(), uIn.end(), uIn.begin(), ::tolower);
 
@@ -184,6 +184,22 @@ void UserInterface::menu()
     }
     else if(uIn == "exit")
         return;
+    else if(uIn == "search")
+    {
+        string search;
+        vector<string> results;
+        cout << "Please Enter your search: ";
+        cin >> search;
+        QueryProcessor q(search, index);
+        results = q.search();
+        cout << "Documents with your query:" << endl;
+        for(int i = 0; i < results.size(); i++)
+        {
+            cout << results[i] << endl;
+        }
+        menu();
+
+    }
     else if(uIn == "dindex-d")
     {
         cout << "dindex: Displays the Index." << endl;

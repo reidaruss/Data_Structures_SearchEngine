@@ -7,9 +7,9 @@ htindex::htindex()
     ht = new HashTable(500000);
 }
 
-void htindex::searchIndex(string s)
+vector<string> htindex::searchIndex(vector<string> query)
 {
-
+    return ht->search(query);
 }
 
 void htindex::insertI(string s, string d)

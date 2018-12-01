@@ -12,7 +12,7 @@ private:
     HashTable * ht;
 public:
     htindex();
-    void searchIndex(string s);
+    vector<string> searchIndex(vector<string> query);
     void insertI(string s, string d);
     void displayI();
     int getUWords();

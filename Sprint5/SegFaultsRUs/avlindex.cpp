@@ -6,7 +6,7 @@ avlindex::avlindex()
 }
 
 
-void avlindex::searchIndex(string s)
+vector<string> avlindex::searchIndex(vector<string> query)
 {
 
 }

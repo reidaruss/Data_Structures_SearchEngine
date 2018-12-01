@@ -122,6 +122,11 @@ void HashNode::printDocs()
 
 }
 
+vector<string> HashNode::getDocs()
+{
+    return docs;
+}
+
 void HashTable::clear()
 {
     table->clear();
@@ -135,4 +140,27 @@ bool HashTable::isEmpty()
         return true;
     else
         return false;
+}
+
+vector<string> HashTable::search(vector<string> query)
+{
+    vector<string> noResults;
+    noResults.push_back("There are no results for your search. Please try a different search.");
+    int index = hashFunction(query[0]);
+    if(table[index].size() != 0)
+    {
+        list<HashNode>::iterator ci;
+        for(ci = table[index].begin(); ci != table[index].end(); ci++)
+        {
+            if(ci->getKey() == query[0])
+            {
+                return ci->docs;
+            }
+        }
+
+    }
+    else
+    {
+        return noResults;
+    }
 }

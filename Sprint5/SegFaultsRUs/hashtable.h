@@ -22,6 +22,7 @@ public:
     void pushBack(string doc){docs.push_back(doc);}
     bool isEmpty();
     void printDocs();
+    vector<string> getDocs();
 };
 
 class HashTable
@@ -41,6 +42,7 @@ public:
     int getnumWords();
     void clear();
     bool isEmpty();
+    vector<string> search(vector<string> query);
 };
 
 
