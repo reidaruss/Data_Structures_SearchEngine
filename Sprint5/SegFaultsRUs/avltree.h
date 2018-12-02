@@ -18,7 +18,9 @@ private:
         AVLNode *right;
         int height;
         vector<string> docs;
-        AVLNode(const string & theElement, AVLNode *It, AVLNode *rt, const string& d, int h = 0):element(theElement),left(It),right(rt),height(h){docs.push_back(d);}
+        vector<int> freq;
+        AVLNode(const string & theElement, AVLNode *It, AVLNode *rt, const string& d, int h = 0):element(theElement),left(It),right(rt),height(h){docs.push_back(d); freq.push_back(1);}
+
     };
 
     AVLNode *root;
@@ -237,11 +239,12 @@ private:
             {
                 if(node->docs[i] == d)
                 {
-                    //increment frequency counter
+                    node->freq[i]++;
                     return;
                 }
             }
             node->docs.push_back(d);
+            node->freq.push_back(1);
         }
 
         else if(s < node->element)
