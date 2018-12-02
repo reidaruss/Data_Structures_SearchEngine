@@ -29,10 +29,13 @@ public:
     AVLTree():root(nullptr){size = 0;}
     AVLTree(const AVLTree& rhs):root(nullptr){*this = rhs;}
 
-//    ~AvlTree()
-//    {
-//        makeEmpty();
-//    }
+    /*
+     * destructor that makes the tree empty
+     */
+    ~AVLTree()
+    {
+        makeEmpty();
+    }
 
     /*
      * Find the smallest item in the tree.
@@ -94,6 +97,9 @@ public:
         insert(x, root, d);
     }
 
+    /*
+     * returns the size of tree
+     */
     int getSize()
     {
         return size;
@@ -104,11 +110,17 @@ public:
         search(s, root);
     }
 
+    /*
+     * adds document to tree to parse through
+     */
     void addDoc(const string& s, const string& d)
     {
         addDoc(s, d, root);
     }
 
+    /*
+     * gets documents to parse through
+     */
     vector<string> getDocs(const vector<string>& s)
     {
         return getDocs(s, root);
@@ -137,6 +149,10 @@ public:
 
     }
 
+
+    /*
+     * clears the tree
+     */
     void clearTree()
     {
         clearTree(root);
@@ -144,6 +160,11 @@ public:
 
 private:
 
+    /*
+     * function that actually clears the tree
+     * clearing from left node to right node and then fully deleting the node
+     * also decreased size as nodes get deleted
+     */
     void clearTree(AVLNode*& node)
     {
         if(node != NULL)
@@ -156,6 +177,11 @@ private:
         node = NULL;
     }
 
+    /*
+     * function that checks if document is there
+     * and if it is gets the elements in the document
+     * to save to a node that will be checked later
+     */
     vector<string> getDocs(const vector<string>& s, AVLNode*& node)
     {
         vector<string> noResults;
@@ -172,6 +198,7 @@ private:
             ;
     }
 
+
     vector<string> getDocs(const string& s, AVLNode*& node)
     {
         if(s == node->element)
@@ -185,6 +212,11 @@ private:
     }
 
 
+
+    /*
+     * function that search there nodes for
+     * a specific elemetn and returns that element
+     */
     bool search(const string& s, AVLNode*& node)
     {
         if(node == nullptr)
@@ -231,6 +263,21 @@ private:
     int max(int lhs, int rhs) const
     {
         return lhs > rhs ? lhs: rhs;
+    }
+
+    /*
+     * function that deletes the tree by
+     * making it empty from left node to right node and then fully deleting the node
+     */
+    void makeEmpty(AVLNode*& t) const
+    {
+        if(t != NULL)
+        {
+            makeEmpty(t->left);
+            makeEmpty(t->right);
+            delete t;
+        }
+        t = NULL;
     }
 
     /*
