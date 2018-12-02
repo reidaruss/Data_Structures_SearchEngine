@@ -34,6 +34,7 @@ public:
     void clearIndex();
     int getSize();
     vector<string> getIndex();
+    vector<int> getFreq(vector<string> query);
 
 };
 

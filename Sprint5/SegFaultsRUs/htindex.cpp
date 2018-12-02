@@ -46,3 +46,8 @@ vector<string> htindex::getIndex()
 {
     return ht->getIndex();
 }
+
+vector<int> htindex::getFreq(vector<string> query)
+{
+    return ht->getFreq(query);
+}

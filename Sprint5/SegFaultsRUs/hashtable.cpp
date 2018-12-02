@@ -216,3 +216,20 @@ void HashNode::incFreq(string d)
     }
 }
 
+vector<int> HashTable::getFreq(vector<string> query)
+{
+    int index = hashFunction(query[0]);
+    if(table[index].size() != 0)
+    {
+        list<HashNode>::iterator ci;
+        for(ci = table[index].begin(); ci != table[index].end(); ci++)
+        {
+            if(ci->getKey() == query[0])
+            {
+                return ci->freq;
+            }
+        }
+
+    }
+}
+

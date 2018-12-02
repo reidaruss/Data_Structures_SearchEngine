@@ -30,6 +30,7 @@ public:
     virtual void clearIndex() =0;
     virtual int getSize()     =0;
     virtual vector<string> getIndex() = 0;
+    virtual vector<int> getFreq(vector<string> query) = 0;
 
 
 };

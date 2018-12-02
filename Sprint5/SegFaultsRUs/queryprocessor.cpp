@@ -29,6 +29,7 @@ vector<string> QueryProcessor::search()
 vector<string> QueryProcessor::regSearch()
 {
     vector<string> result = index->searchIndex(query);
+    vector<int> freq = index->getFreq(query);
     return result;
 }
 

@@ -62,6 +62,7 @@ public:
     vector<string> search(vector<string> query);
     int getSize();
     vector<string> getIndex();
+    vector<int> getFreq(vector<string> query);
 
 };
 

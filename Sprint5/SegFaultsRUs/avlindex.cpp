@@ -52,4 +52,7 @@ vector<string> avlindex::getIndex()
     return tree.getIndex();
 }
 
+vector<int> avlindex::getFreq(vector<string> query)
+{
 
+}
