@@ -11,6 +11,7 @@ class IndexInterface
 public:
     IndexInterface();
     virtual vector<string> searchIndex(vector<string> query) = 0;
+    //virtual void searchIndex(vector<string> query) = 0; //change this back to the one above
     virtual void insertI(string s, string d) = 0;
     virtual void displayI() =0;
     virtual int getUWords() =0;

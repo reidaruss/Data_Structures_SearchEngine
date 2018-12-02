@@ -9,11 +9,19 @@ avlindex::avlindex()
 vector<string> avlindex::searchIndex(vector<string> query)
 {
 
+    return tree.getDocs(query);
 }
 
 void avlindex::insertI(string s, string d)
 {
-    tree.insert(s);
+    if(tree.search(s) == true)
+    {
+        tree.addDoc(s, d);
+    }
+    else if(tree.search(s) == false)
+    {
+        tree.insert(s,d);
+    }
 }
 
 void avlindex::displayI()

@@ -2,6 +2,7 @@
 #ifndef AVLTREE_H
 #define AVLTREE_H
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -16,8 +17,8 @@ private:
         AVLNode *left;
         AVLNode *right;
         int height;
-
-        AVLNode(const string & theElement, AVLNode *It, AVLNode *rt, int h = 0):element(theElement),left(It),right(rt),height(h){}
+        vector<string> docs;
+        AVLNode(const string & theElement, AVLNode *It, AVLNode *rt, const string& d, int h = 0):element(theElement),left(It),right(rt),height(h){docs.push_back(d);}
     };
 
     AVLNode *root;
@@ -84,9 +85,9 @@ public:
      * insert x into the tree;
      * duplicates are ignored
      */
-    void insert(const string& x)
+    void insert(const string& x, const string& d)
     {
-        insert(x, root);
+        insert(x, root, d);
     }
 
     int getSize()
@@ -94,7 +95,74 @@ public:
         return size;
     }
 
+    bool search(const string& s)
+    {
+        search(s, root);
+    }
+
+    void addDoc(const string& s, const string& d)
+    {
+        addDoc(s, d, root);
+    }
+
+    vector<string> getDocs(const vector<string>& s)
+    {
+        return getDocs(s, root);
+    }
+
 private:
+
+    vector<string> getDocs(const vector<string>& s, AVLNode*& node)
+    {
+        vector<string> noResults;
+        noResults.push_back("There are no results for your search. Please try a different search.");
+        if(node == nullptr)
+            return noResults;
+        else if(s[0] == node->element)
+            return node->docs;
+        else if(s[0] < node->element)
+            return getDocs(s, node->left);
+        else if(s[0] > node->element)
+            return getDocs(s, node->right);
+        else
+            ;
+    }
+
+
+    bool search(const string& s, AVLNode*& node)
+    {
+        if(node == nullptr)
+            return false;
+        else if(s < node->element)
+            return search(s, node->left);
+        else if(s > node->element)
+            return search(s, node->right);
+        else
+            ;
+    }
+
+    void addDoc(const string& s, const string& d, AVLNode*& node)
+    {
+        if(s == node->element)
+        {
+            for(int i = 0; i < node->docs.size(); i++)
+            {
+                if(node->docs[i] == d)
+                {
+                    //increment frequency counter
+                    return;
+                }
+            }
+            node->docs.push_back(d);
+        }
+
+        else if(s < node->element)
+            return addDoc(s, d, node->left);
+        else if(s > node->element)
+            return addDoc(s, d, node->right);
+
+    }
+
 
     /*
      * return the height of node t -1 if NULL
@@ -115,16 +183,16 @@ private:
      * t is the node that roots the subtree
      * set the new root of the subtree
      */
-    void insert(const string& x, AVLNode*& t)
+    void insert(const string& x, AVLNode*& t, const string& d)
     {
         if( t == nullptr)
         {
-            t = new AVLNode(x, nullptr, nullptr);
+            t = new AVLNode(x, nullptr, nullptr,d);
             size ++;
         }
         else if(x < t->element)
         {
-            insert(x, t->left);
+            insert(x, t->left, d);
             if(height(t->left)-height(t->right) == 2)
             {
                 if(x < t->left->element)
@@ -135,7 +203,7 @@ private:
         }
         else if(t->element < x)
         {
-            insert(x, t->right);
+            insert(x, t->right, d);
             if(height(t->right) - height(t->left) == 2)
             {
                 if(t->right->element < x)

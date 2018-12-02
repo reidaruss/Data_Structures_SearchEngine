@@ -17,19 +17,19 @@ vector<string> QueryProcessor::search()
     for(int i = 0; i < query.size(); i++)
     {
         if(query[i] == "AND")
-            andS(i);
+            return andS(i);
         else if(query[i] == "OR")
-            orS(i);
+            return orS(i);
         else if(query[i] == "NOT")
-            notS(i);
-        else
-            return regSearch();
+            return notS(i);
     }
+    return regSearch();
 }
 
 vector<string> QueryProcessor::regSearch()
 {
-    return index->searchIndex(query);
+    vector<string> result = index->searchIndex(query);
+    return result;
 }
 
 vector<string> QueryProcessor::andS(int x)
