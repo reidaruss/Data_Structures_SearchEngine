@@ -71,6 +71,8 @@ public:
     {
         if(size == 0)
             return true;
+        else
+            return false;
     }
 
     /*
@@ -110,7 +112,24 @@ public:
         return getDocs(s, root);
     }
 
+    void clearTree()
+    {
+        clearTree(root);
+    }
+
 private:
+
+    void clearTree(AVLNode*& node)
+    {
+        if(node != NULL)
+        {
+            clearTree(node->left);
+            clearTree(node->right);
+            delete node;
+            size--;
+        }
+        node = NULL;
+    }
 
     vector<string> getDocs(const vector<string>& s, AVLNode*& node)
     {

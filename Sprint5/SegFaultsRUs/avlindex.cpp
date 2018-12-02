@@ -41,5 +41,5 @@ bool avlindex::isEmpty()
 
 void avlindex::clearIndex()
 {
-
+    tree.clearTree();
 }
