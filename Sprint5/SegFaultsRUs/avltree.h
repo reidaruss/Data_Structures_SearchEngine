@@ -23,6 +23,7 @@ private:
 
     AVLNode *root;
     int size;
+    vector<string> words; //stores all of the words. used to get docs when writing persistant index.
 
 public:
     AVLTree():root(nullptr){size = 0;}
@@ -89,6 +90,7 @@ public:
      */
     void insert(const string& x, const string& d)
     {
+        words.push_back(x);
         insert(x, root, d);
     }
 
@@ -110,6 +112,29 @@ public:
     vector<string> getDocs(const vector<string>& s)
     {
         return getDocs(s, root);
+    }
+
+    vector<string> getDocs(const string& s)
+    {
+        return getDocs(s, root);
+    }
+
+    vector<string> getIndex()
+    {
+        vector<string> I;
+        for(int i = 0; i < words.size(); i++)
+        {
+            vector<string> tempvec = getDocs(words[i]);
+            string temp = words[i];
+            for(int j = 0; j < tempvec.size(); j++)
+            {
+                temp += " " + tempvec[j];
+            }
+            I.push_back(temp);
+        }
+
+        return I;
+
     }
 
     void clearTree()
@@ -142,6 +167,18 @@ private:
         else if(s[0] < node->element)
             return getDocs(s, node->left);
         else if(s[0] > node->element)
+            return getDocs(s, node->right);
+        else
+            ;
+    }
+
+    vector<string> getDocs(const string& s, AVLNode*& node)
+    {
+        if(s == node->element)
+            return node->docs;
+        else if(s < node->element)
+            return getDocs(s, node->left);
+        else if(s > node->element)
             return getDocs(s, node->right);
         else
             ;

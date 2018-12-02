@@ -12,6 +12,8 @@
 #include <string>
 #include <stdio.h>
 #include "queryprocessor.h"
+#include "persistedindex.h"
+
 
 class UserInterface
 {

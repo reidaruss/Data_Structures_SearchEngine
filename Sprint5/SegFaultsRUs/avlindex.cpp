@@ -43,3 +43,15 @@ void avlindex::clearIndex()
 {
     tree.clearTree();
 }
+
+int avlindex::getSize()
+{
+    return tree.getSize();
+}
+
+vector<string> avlindex::getIndex()
+{
+    return tree.getIndex();
+}
+
+

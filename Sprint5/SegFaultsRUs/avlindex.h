@@ -16,6 +16,9 @@ public:
     int getUWords();
     bool isEmpty();
     void clearIndex();
+    int getSize();
+    vector<string> getIndex();
+
 
 };
 

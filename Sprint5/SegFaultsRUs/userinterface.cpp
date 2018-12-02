@@ -42,6 +42,8 @@ void UserInterface::maintenance()
     transform(uIn.begin(), uIn.end(), uIn.begin(), ::tolower);
     if(uIn == "exit")
     {
+        PersistedIndex pI(index);
+        pI.writeIndex();
         return;
     }
     else if(uIn == "exit-d")

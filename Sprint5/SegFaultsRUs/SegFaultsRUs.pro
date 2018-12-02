@@ -11,7 +11,8 @@ SOURCES += \
     hashtable.cpp \
     htindex.cpp \
     avlindex.cpp \
-    indexinterface.cpp
+    indexinterface.cpp \
+    persistedindex.cpp
 
 
 HEADERS += \
@@ -23,4 +24,5 @@ HEADERS += \
     indexinterface.h \
     htindex.h \
     avlindex.h \
+    persistedindex.h
 
