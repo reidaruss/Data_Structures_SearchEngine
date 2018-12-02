@@ -113,44 +113,6 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
         if(pos == string::npos){
             index->insertI(insertStr, "11");
             cout << insertStr << endl;
-
-
-    //BELOW IS THE TEMPORARY SPECIAL CHARACTER REMOVAL AND INSERTION INTO AVLTREE USING GETLINE AND SPACE AS A DELIMITER
-    StringBuffer buf;
-    Writer<StringBuffer> writer(buf);
-    d.Accept(writer);
-    string temp = buf.GetString();
-    //cout << temp << endl << endl << endl;
-
-        temp.erase(remove(temp.begin(), temp.end(), '('), temp.end() ); //Reference I used to remove specific characters : https://stackoverflow.com/questions/20326356/how-to-remove-all-the-occurrences-of-a-char-in-c-string
-        temp.erase(remove(temp.begin(), temp.end(), ')'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '['), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), ']'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '\''), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '\"'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '<'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '>'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '.'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '/'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), ','), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), ':'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '{'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '}'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '*'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), ';'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '-'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '_'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '\\'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '='), temp.end() );
-
-
-
-        string tempstr = "";
-        istringstream str(temp);
-        while(getline(str,tempstr, ' '))
-        {
-            index->insertI(tempstr, "11");
-
         }
     }
 
