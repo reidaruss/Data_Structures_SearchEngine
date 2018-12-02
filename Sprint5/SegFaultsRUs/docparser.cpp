@@ -1,5 +1,7 @@
 //MISC
 #include <iostream>
+#include <algorithm>
+#include <functional>
 #include <string>
 #include <dirent.h>
 #include "docparser.h"
@@ -86,53 +88,33 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     }
     map = (char*)mmap(0, FILESIZE, PROT_READ, MAP_SHARED, fd, 0);
 
-    //Test access to mapped file
+    //Format file
     Document d;
     d.Parse(map);
     Value& text = d["plain_text"];
-    //cout << '\t' << filesProcessed << '\t'  << endl;
+    string temp = text.GetString();
+    replaceSubStr(temp, "\n");
+    replaceSubStr(temp, ".");
+    replaceSubStr(temp, "(");
+    replaceSubStr(temp, ")");
+    replaceSubStr(temp, ",");
+    replaceSubStr(temp, "]");
+    replaceSubStr(temp, "[");
+    replaceSubStr(temp, ";");
+    replaceSubStr(temp, "-");
+    replaceSubStr(temp, "*");
 
-    //BELOW IS THE TEMPORARY SPECIAL CHARACTER REMOVAL AND INSERTION INTO AVLTREE USING GETLINE AND SPACE AS A DELIMITER
-    StringBuffer buf;
-    Writer<StringBuffer> writer(buf);
-    d.Accept(writer);
-    string temp = buf.GetString();
-    //cout << temp << endl << endl << endl;
-
-        temp.erase(remove(temp.begin(), temp.end(), '('), temp.end() ); //Reference I used to remove specific characters : https://stackoverflow.com/questions/20326356/how-to-remove-all-the-occurrences-of-a-char-in-c-string
-        temp.erase(remove(temp.begin(), temp.end(), ')'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '['), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), ']'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '\''), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '\"'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '<'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '>'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '.'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '/'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), ','), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), ':'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '{'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '}'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '*'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), ';'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '-'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '_'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '\\'), temp.end() );
-        temp.erase(remove(temp.begin(), temp.end(), '='), temp.end() );
-
-
-
-        string tempstr = "";
-        istringstream str(temp);
-        while(getline(str,tempstr, ' '))
-        {
-            index->insertI(tempstr, "11");
+    //Add words to index
+    string insertStr ="";
+    istringstream str(temp);
+    while(getline(str, insertStr, ' ')){
+        size_t pos = insertStr.find(" ");
+        if(pos == string::npos){
+            index->insertI(insertStr, "11");
+            cout << insertStr << endl;
         }
+    }
 
-
-
-//ABOVE IS THE TEMPORARY SPECIAL CHARACTER REMOVAL AND INSERTION INTO AVLTREE USING GETLINE AND SPACE AS A DELIMITER
-//////////////////////////////////////////////
 
 
     //Un-memory map the file
@@ -156,5 +138,12 @@ void DocParser::setDirectoryHead(char* headToSet){
 int DocParser::getFP()
 {
     return filesProcessed;
+}
+
+void DocParser::replaceSubStr(string &main, const string &toErase){
+    size_t pos = string::npos;
+    while((pos = main.find(toErase)) != string::npos){
+        main.replace(pos, toErase.length(), " ");
+    }
 }
 
