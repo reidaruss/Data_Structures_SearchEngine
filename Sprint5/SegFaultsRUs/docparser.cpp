@@ -1,5 +1,7 @@
 //MISC
 #include <iostream>
+#include <algorithm>
+#include <functional>
 #include <string>
 #include <dirent.h>
 #include "docparser.h"
@@ -86,10 +88,32 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     }
     map = (char*)mmap(0, FILESIZE, PROT_READ, MAP_SHARED, fd, 0);
 
-    //Test access to mapped file
+    //Format file
     Document d;
     d.Parse(map);
     Value& text = d["plain_text"];
+
+    string temp = text.GetString();
+    replaceSubStr(temp, "\n");
+    replaceSubStr(temp, ".");
+    replaceSubStr(temp, "(");
+    replaceSubStr(temp, ")");
+    replaceSubStr(temp, ",");
+    replaceSubStr(temp, "]");
+    replaceSubStr(temp, "[");
+    replaceSubStr(temp, ";");
+    replaceSubStr(temp, "-");
+    replaceSubStr(temp, "*");
+
+    //Add words to index
+    string insertStr ="";
+    istringstream str(temp);
+    while(getline(str, insertStr, ' ')){
+        size_t pos = insertStr.find(" ");
+        if(pos == string::npos){
+            index->insertI(insertStr, "11");
+            cout << insertStr << endl;
+
 
     //BELOW IS THE TEMPORARY SPECIAL CHARACTER REMOVAL AND INSERTION INTO AVLTREE USING GETLINE AND SPACE AS A DELIMITER
     StringBuffer buf;
@@ -126,12 +150,10 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
         while(getline(str,tempstr, ' '))
         {
             index->insertI(tempstr, "11");
+
         }
+    }
 
-
-
-//ABOVE IS THE TEMPORARY SPECIAL CHARACTER REMOVAL AND INSERTION INTO AVLTREE USING GETLINE AND SPACE AS A DELIMITER
-//////////////////////////////////////////////
 
 
     //Un-memory map the file
@@ -155,5 +177,12 @@ void DocParser::setDirectoryHead(char* headToSet){
 int DocParser::getFP()
 {
     return filesProcessed;
+}
+
+void DocParser::replaceSubStr(string &main, const string &toErase){
+    size_t pos = string::npos;
+    while((pos = main.find(toErase)) != string::npos){
+        main.replace(pos, toErase.length(), " ");
+    }
 }
 

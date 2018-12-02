@@ -17,6 +17,7 @@ public:
     void parse(char* FILENAME, IndexInterface * index);
 
     void setDirectoryHead(char* headToSet);
+    void replaceSubStr(string &main, const string &toErase);
 
     void parseHTML(string s);
     int getFP();
