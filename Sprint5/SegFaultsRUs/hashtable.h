@@ -1,4 +1,17 @@
-//REID RUSSELL
+/*REID RUSSELL
+ * Hash Table is responsible for creating a hash table, inserting the words and documents during parsing or read in from persistant index,
+ * formatting the index and returning it in getIndex(), and handling and collisions that might occur.
+ *
+ * -Added Simple hash table implementation for ints.
+ * -Fixed code to handle strings.
+ * -Implemented stl hash function to convert strings to ints then set index by modding with total number of buckets.
+ * -Added document tracking vector to HashNode.
+ * -Added checkDocs to make sure repeat docs dont get added.
+ * -Added displayHash for printing out populated indexes to see visual representation of the index.
+ * -Added clear() to clear table.
+ * -Added getIndex() to format and return the index for persisted index writing.
+ * -Added search() for queries.
+ * */
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 #include <iostream>

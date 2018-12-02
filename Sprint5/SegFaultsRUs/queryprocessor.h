@@ -1,3 +1,12 @@
+/*REID RUSSELL
+ * The Query Processor takes an input from the user in the UI then parses it
+ * and runs the desired search method based on the query. It then returns a vector
+ * containing all of the document names the query appears on in a relavency ranked
+ * order.
+ *
+ * -Added regular (1 word) search
+ *
+ * */
 #ifndef QUERYPROCESSOR_H
 #define QUERYPROCESSOR_H
 #include <vector>
