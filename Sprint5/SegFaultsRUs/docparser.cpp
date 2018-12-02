@@ -111,8 +111,8 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     while(getline(str, insertStr, ' ')){
         size_t pos = insertStr.find(" ");
         if(pos == string::npos){
-            index->insertI(insertStr, "11");
-            cout << insertStr << endl;
+            index->insertI(insertStr, FILENAME);
+            //cout << insertStr << endl;
         }
     }
 

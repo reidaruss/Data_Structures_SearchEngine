@@ -36,7 +36,7 @@ void HashTable::insert(string x, string d)  //x is the key, d is the doc. need t
                 if(ci->checkDocs(d) == false)
                 {
                     ci->pushBack(d);
-                    break;
+                    return;
                 }
                 return;
             }

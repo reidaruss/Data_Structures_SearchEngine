@@ -315,7 +315,10 @@ private:
                     doubleWithRightChild(t); //case #3
             }
         }
-        else; //no duplicates
+        else
+        {
+            addDoc(x,d);
+        }
 
         t->height = max(height(t->left), height(t->right)) + 1;
     }
