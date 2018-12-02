@@ -167,3 +167,32 @@ vector<string> HashTable::search(vector<string> query)
         return noResults;
     }
 }
+
+int HashTable::getSize()
+{
+    return numWords;
+}
+
+vector<string> HashTable::getIndex()
+{
+    vector<string> I;
+    for(int i = 0; i < bucket; i++)
+    {
+        if(table[i].size() != 0)
+        {
+            list<HashNode>::iterator ci;
+            for(ci = table[i].begin(); ci != table[i].end(); ci++)
+            {
+                string temp = ci->getKey();
+                vector<string> tempvec= ci->getDocs();
+                for(int j = 0; j < tempvec.size(); j++)
+                {
+                    temp += " " + tempvec[j];
+                }
+                I.push_back(temp);
+            }
+
+        }
+    }
+    return I;
+}

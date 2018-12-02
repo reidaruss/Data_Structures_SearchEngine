@@ -1,9 +1,7 @@
 #include "avlindex.h"
 
 avlindex::avlindex()
-{
-
-}
+{}
 
 
 vector<string> avlindex::searchIndex(vector<string> query)
@@ -43,3 +41,15 @@ void avlindex::clearIndex()
 {
     tree.clearTree();
 }
+
+int avlindex::getSize()
+{
+    return tree.getSize();
+}
+
+vector<string> avlindex::getIndex()
+{
+    return tree.getIndex();
+}
+
+

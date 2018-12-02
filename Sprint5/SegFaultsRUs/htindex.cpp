@@ -36,3 +36,13 @@ void htindex::clearIndex()
 {
     ht->clear();
 }
+
+int htindex::getSize()
+{
+    return ht->getSize();
+}
+
+vector<string> htindex::getIndex()
+{
+    return ht->getIndex();
+}

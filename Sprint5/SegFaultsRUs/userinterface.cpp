@@ -42,6 +42,8 @@ void UserInterface::maintenance()
     transform(uIn.begin(), uIn.end(), uIn.begin(), ::tolower);
     if(uIn == "exit")
     {
+        //PersistedIndex pI(index);
+        //pI.writeIndex();
         return;
     }
     else if(uIn == "exit-d")
@@ -52,6 +54,11 @@ void UserInterface::maintenance()
     else if(uIn == "int")
     {
         menu();
+    }
+    else if(uIn == "int-d")
+    {
+        cout << "int: Switch to the Interactive Menu" << endl;
+        maintenance();
     }
     else if(uIn == "ci")
     {
@@ -78,6 +85,11 @@ void UserInterface::maintenance()
 
         }
     }
+    else if(uIn == "ci-d")
+    {
+        cout << "ci: Clears the current index." << endl;
+        maintenance();
+    }
     else if(uIn == "ao")
     {
         string file;
@@ -97,6 +109,11 @@ void UserInterface::maintenance()
             init();
         }
 
+    }
+    else if(uIn == "ao-d")
+    {
+        cout << "ao: Add documents to the index with a filepath to a folder containing new opinions." << endl;
+        maintenance();
     }
     else
     {
@@ -170,6 +187,11 @@ void UserInterface::menu()
     {
         maintenance();
     }
+    else if(uIn == "maint-d")
+    {
+        cout << "maint: Switches to the Maintenance Menu." << endl;
+        menu();
+    }
     else if(uIn == "stats")
     {
         if(filesParsed == 0)
@@ -209,6 +231,11 @@ void UserInterface::menu()
             menu();
         }
 
+    }
+    else if(uIn == "search-d")
+    {
+        cout << "search: Enter a search query and get back the documents containing that query." << endl;
+        menu();
     }
     else if(uIn == "dindex-d")
     {

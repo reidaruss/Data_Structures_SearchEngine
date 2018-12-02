@@ -43,6 +43,8 @@ public:
     void clear();
     bool isEmpty();
     vector<string> search(vector<string> query);
+    int getSize();
+    vector<string> getIndex();
 };
 
 
