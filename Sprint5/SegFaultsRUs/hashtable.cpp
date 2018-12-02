@@ -36,7 +36,12 @@ void HashTable::insert(string x, string d)  //x is the key, d is the doc. need t
                 if(ci->checkDocs(d) == false)
                 {
                     ci->pushBack(d);
+                    ci->pushBack(1);
                     return;
+                }
+                if(ci->checkDocs(d) == true)
+                {
+                    ci->incFreq(d);
                 }
                 return;
             }
@@ -94,6 +99,7 @@ HashNode::HashNode(string k, string doc)
 {
     key = k;
     docs.push_back(doc);
+    freq.push_back(1);
 }
 
 bool HashNode::checkDocs(string doc) //should iterate through vector docs and return true if key already has that doc stored and false if not.
@@ -117,8 +123,10 @@ bool HashNode::isEmpty()
 void HashNode::printDocs()
 {
     for(int i = 0; i < docs.size() - 1; i ++)
-        cout << docs[i] << " -->";
-    cout << docs[docs.size()-1];
+    {
+        cout << docs[i] << "Freq: " << freq[i] << " -->";
+    }
+    cout << docs[docs.size()-1] << " Freq: " << freq[freq.size()-1];
 
 }
 
@@ -196,3 +204,15 @@ vector<string> HashTable::getIndex()
     }
     return I;
 }
+
+void HashNode::incFreq(string d)
+{
+    for(int i = 0; i < docs.size(); i ++)
+    {
+        if(d == docs[i])
+        {
+            freq[i]++;
+        }
+    }
+}
+

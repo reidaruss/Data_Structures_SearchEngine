@@ -11,6 +11,7 @@
  * -Added clear() to clear table.
  * -Added getIndex() to format and return the index for persisted index writing.
  * -Added search() for queries.
+ * -Added freq vector to track frequency of word in each doc for ranking relavency
  * */
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
@@ -28,14 +29,17 @@ class HashNode
 private:
     string key;
     vector<string> docs;
+    vector<int> freq; //frequency of word in each doc
 public:
     HashNode(string k, string doc);
     string getKey(){return key;}
     bool checkDocs(string doc); //should iterate through vector docs and return true if key already has that doc stored and false if not.
     void pushBack(string doc){docs.push_back(doc);}
+    void pushBack(int i){freq.push_back(i);}
     bool isEmpty();
     void printDocs();
     vector<string> getDocs();
+    void incFreq(string d);
 };
 
 class HashTable
@@ -58,6 +62,7 @@ public:
     vector<string> search(vector<string> query);
     int getSize();
     vector<string> getIndex();
+
 };
 
 
