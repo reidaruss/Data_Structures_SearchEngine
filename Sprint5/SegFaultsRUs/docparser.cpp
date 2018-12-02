@@ -90,7 +90,6 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     Document d;
     d.Parse(map);
     Value& text = d["plain_text"];
-    //cout << '\t' << filesProcessed << '\t'  << endl;
 
     //BELOW IS THE TEMPORARY SPECIAL CHARACTER REMOVAL AND INSERTION INTO AVLTREE USING GETLINE AND SPACE AS A DELIMITER
     StringBuffer buf;
