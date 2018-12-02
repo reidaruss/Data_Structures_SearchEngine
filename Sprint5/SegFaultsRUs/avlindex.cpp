@@ -1,9 +1,7 @@
 #include "avlindex.h"
 
 avlindex::avlindex()
-{
-
-}
+{}
 
 
 vector<string> avlindex::searchIndex(vector<string> query)
