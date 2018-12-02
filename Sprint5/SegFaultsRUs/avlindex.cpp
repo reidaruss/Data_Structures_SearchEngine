@@ -38,3 +38,8 @@ bool avlindex::isEmpty()
 {
     return tree.isEmpty();
 }
+
+void avlindex::clearIndex()
+{
+
+}

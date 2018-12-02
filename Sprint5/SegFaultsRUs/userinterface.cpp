@@ -62,7 +62,9 @@ void UserInterface::maintenance()
         }
         else
         {
-            //index->clear();
+            index->clearIndex();
+            if(index->isEmpty() == true)
+                filesParsed = 0;
             if(filesParsed == 0)
             {
                 cout << "Index Cleared." << endl;
@@ -186,18 +188,26 @@ void UserInterface::menu()
         return;
     else if(uIn == "search")
     {
-        string search;
-        vector<string> results;
-        cout << "Please Enter your search: ";
-        cin >> search;
-        QueryProcessor q(search, index);
-        results = q.search();
-        cout << "Documents with your query:" << endl;
-        for(int i = 0; i < results.size(); i++)
+        if(filesParsed == 0)
         {
-            cout << results[i] << endl;
+           cout << "Index is empty, please add opinions in the maintenance menu." << endl;
+           menu();
         }
-        menu();
+        else
+         {
+            string search;
+            vector<string> results;
+            cout << "Please Enter your search: ";
+            cin >> search;
+            QueryProcessor q(search, index);
+            results = q.search();
+            cout << "Documents with your query:" << endl;
+            for(int i = 0; i < results.size(); i++)
+            {
+                cout << results[i] << endl;
+            }
+            menu();
+        }
 
     }
     else if(uIn == "dindex-d")

@@ -17,6 +17,7 @@ public:
     void displayI();
     int getUWords();
     bool isEmpty();
+    void clearIndex();
 };
 
 #endif // HTINDEX_H

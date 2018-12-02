@@ -31,3 +31,8 @@ bool htindex::isEmpty()
 {
     return ht->isEmpty();
 }
+
+void htindex::clearIndex()
+{
+    ht->clear();
+}

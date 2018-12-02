@@ -129,8 +129,11 @@ vector<string> HashNode::getDocs()
 
 void HashTable::clear()
 {
-    table->clear();
-    bucket = 0;
+
+    for(int i = 0; i < bucket; i++)
+    {
+        table[i].clear();
+    }
     numWords = 0;
 }
 
