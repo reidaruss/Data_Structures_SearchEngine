@@ -37,10 +37,10 @@
 
 using namespace std;
 using namespace rapidjson;
+using namespace stemming;
 
 DocParser::DocParser(){
     filesProcessed = 0;
-
 }
 
 void DocParser::readFiles(IndexInterface * index){
@@ -96,6 +96,7 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     //Parse file
     replaceSubStrings(temp, parsingStrings);
     removeStopWords(temp);
+    //stemInput(temp);
 
     //Add words to index
     string insertStr ="";
@@ -103,9 +104,9 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     while(getline(str, insertStr, ' ')){
         size_t pos = insertStr.find(" ");
         string displayData = "File Name: " + str2 + "\tTitle: " + title;
+        insertStr = stemString(insertStr);
         if(pos == string::npos){
             index->insertI(insertStr, displayData);
-
         }
     }
 
@@ -176,11 +177,12 @@ void DocParser::replaceSubStrings(string &main, const vector<string> &v){
     }
 }
 
-void DocParser::stemInput(string &main){
-}
-
-string DocParser::stemSearch(string &s){
-
+string DocParser::stemString(string &s){
+    wstring temp(s.begin(), s.end());
+    english_stem<> StemEnglish;
+    StemEnglish(temp);
+    string returnString(temp.begin(), temp.end());
+    return returnString;
 }
 
 string DocParser::getFileExcerpt(string FILENAME){

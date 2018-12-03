@@ -263,6 +263,7 @@ void UserInterface::menu()
             cout << "Please Enter your search: " << endl;
             getline(cin, search);
             transform(search.begin(), search.end(), search.begin(), ::tolower);
+            search = parse.stemString(search);
             QueryProcessor q(search, index);
             results = q.search();
             cout << "Documents with your query:" << endl;
@@ -275,15 +276,13 @@ void UserInterface::menu()
             string fileN = "";
             cout << "Enter the file name you would like to open or enter 'b' to go back to menu." << endl;
             cin >> fileN;
-            if(fileN == "b")
+            if(fileN == "b"){
                 menu();
-
-
+            }
+            else{
                 cout << parse.getFileExcerpt(fileN) << endl;
                 menu();
-
-
-
+            }
         }
 
     }
