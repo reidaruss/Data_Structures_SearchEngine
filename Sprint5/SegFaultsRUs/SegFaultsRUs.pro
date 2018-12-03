@@ -24,5 +24,6 @@ HEADERS += \
     indexinterface.h \
     htindex.h \
     avlindex.h \
-    persistedindex.h
+    persistedindex.h \
+    english_stem.h
 

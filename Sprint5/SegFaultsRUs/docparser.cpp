@@ -58,7 +58,7 @@ void DocParser::readFiles(IndexInterface * index){
             && (dir->d_name != v[1])
             && (dir->d_name != v[2])){
             filesProcessed++;
-            //cout << dir->d_name << "|";
+            cout << dir->d_name << "|";
             parse(dir->d_name, index);
         }
     }
