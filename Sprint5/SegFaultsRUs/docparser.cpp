@@ -121,7 +121,7 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
 }
 
 void DocParser::removeStopWords(string &main){
-    string path = "/home/student/Desktop/externalFileDependencies/stopWords.txt";
+    string path = "externalFileDependencies/stopWords.txt";
     //Load stop word file
     const char* FILEPATH = path.c_str();
     struct stat buffer;
