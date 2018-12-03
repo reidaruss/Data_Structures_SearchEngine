@@ -28,5 +28,8 @@ HEADERS += \
     english_stem.h \
     stemming.h \
     indexing/common_lang_constants.h \
-    indexing/string_util.h
+    indexing/string_util.h \
+    utilities/debug_logic.h \
+    utilities/safe_math.h \
+    utilities/utilities.h
 
