@@ -59,6 +59,8 @@ void DocParser::readFiles(IndexInterface * index){
             && (dir->d_name != v[2])){
             filesProcessed++;
             parse(dir->d_name, index);
+            cout << dir->d_name << "|" << filesProcessed << endl;
+
         }
     }
 
@@ -92,9 +94,10 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     d.Parse(map);
 
     Value& text = d["html_with_citations"];
-    Value& title = d["local_path"];
+    Value& tempTitle = d["absolute_url"];
 
     string temp = text.GetString();
+    string title = tempTitle.GetString();
 
     replaceSubStr(temp, "\n");
     replaceSubStr(temp, ".");
@@ -133,10 +136,17 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     istringstream str(temp);
     while(getline(str, insertStr, ' ')){
         size_t pos = insertStr.find(" ");
-        string displayData = "File Name: " + str2 + "\tTitle: " + title.GetString();
+
+
+        string displayData = "File Name: " + str2 + "\tTitle: " + title;
         if(pos == string::npos){
             index->insertI(insertStr, displayData);
         }
+
+//        if(pos == string::npos){
+//            index->insertI(insertStr, FILENAME);
+//        }
+
     }
 
     //Un-memory map the file
