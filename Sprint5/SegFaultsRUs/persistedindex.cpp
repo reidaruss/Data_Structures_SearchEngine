@@ -69,7 +69,7 @@ IndexInterface* PersistedIndex::readIndex()
             vector<string> node;
             istringstream ss(tempstr);
             string s;
-            while(getline(ss,s, ' '))
+            while(getline(ss,s, '|'))
             {
                 node.push_back(s);
             }

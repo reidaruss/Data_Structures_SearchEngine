@@ -147,7 +147,7 @@ public:
             string temp = words[i];
             for(int j = 0; j < tempvec.size(); j++)
             {
-                temp += " " + tempvec[j];
+                temp += "|" + tempvec[j];
             }
             I.push_back(temp);
         }
