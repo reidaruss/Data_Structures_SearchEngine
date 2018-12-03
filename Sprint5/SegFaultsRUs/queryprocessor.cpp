@@ -1,5 +1,8 @@
 #include "queryprocessor.h"
 
+/*This Query Processor constructor taking in a string query
+ * and parses it into a vector and sets the index.
+ */
 QueryProcessor::QueryProcessor(string s, IndexInterface *ind)
 {
     index = ind;
@@ -12,6 +15,9 @@ QueryProcessor::QueryProcessor(string s, IndexInterface *ind)
 
 }
 
+/*This function takes the query and sends it to the proper
+ * search function.
+ */
 vector<string> QueryProcessor::search()
 {
     for(int i = 0; i < query.size(); i++)
@@ -26,6 +32,10 @@ vector<string> QueryProcessor::search()
     return regSearch(query[0]);
 }
 
+/*This function is used for single word search, but
+ * is also called by the other search functions with each of
+ * their multiple search queries.
+ */
 vector<string> QueryProcessor::regSearch(string q)
 {
     vector<string> noresult;
@@ -61,6 +71,10 @@ vector<string> QueryProcessor::regSearch(string q)
         return result;
 }
 
+/*andS() handles AND queries. it finds the intersection of
+ * documents from the 2 or 3 search terms and returns
+ * the intersection.
+ */
 vector<string> QueryProcessor::andS(int x)
 {
     vector<string> noresult;
@@ -132,6 +146,10 @@ vector<string> QueryProcessor::andS(int x)
         return result;
 }
 
+/*orS() handles OR queries. It returns the
+ * documents that are in either search word and
+ * the documents that they have in common.
+ */
 vector<string> QueryProcessor::orS(int x)
 {
     vector<string> noresult;
@@ -168,6 +186,9 @@ vector<string> QueryProcessor::orS(int x)
         return result;
 }
 
+/*nots() returns the documents that contain the first
+ * search term and do not contain the second.
+ */
 vector<string> QueryProcessor::notS(int x)
 {
     vector<string> noresult;

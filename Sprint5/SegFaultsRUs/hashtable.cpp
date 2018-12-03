@@ -116,6 +116,9 @@ HashNode::HashNode(string k, string doc)
     freq.push_back(1);
 }
 
+/*Checks to see if a doc
+ * is already in the docs vector.
+ */
 bool HashNode::checkDocs(string doc) //should iterate through vector docs and return true if key already has that doc stored and false if not.
 {
     for(int i = 0; i < docs.size(); i++)
@@ -134,6 +137,9 @@ bool HashNode::isEmpty()
         return false;
 }
 
+/*This function is to provide a visual representation of the index
+ * by outputting every node. It is called by UI by dindex in Interactive menu.
+ */
 void HashNode::printDocs()
 {
     for(int i = 0; i < docs.size() - 1; i ++)
@@ -149,6 +155,9 @@ vector<string> HashNode::getDocs()
     return docs;
 }
 
+/*Clears the hash table.
+ * Called in UI when ci is input.
+ */
 void HashTable::clear()
 {
 
@@ -159,6 +168,7 @@ void HashTable::clear()
     numWords = 0;
 }
 
+
 bool HashTable::isEmpty()
 {
     if(numWords ==0)
@@ -167,6 +177,9 @@ bool HashTable::isEmpty()
         return false;
 }
 
+/*Search takes a string query and returns the associated
+ * docs vector if the query is in the hash table.
+ */
 vector<string> HashTable::search(string query)
 {
     vector<string> noResults;
@@ -194,6 +207,9 @@ int HashTable::getSize()
     return numWords;
 }
 
+/*Formats the HashTable in a manner that can be used by
+ * the persisted index to write to file and be read back in.
+ */
 vector<string> HashTable::getIndex()
 {
     vector<string> I;
@@ -218,6 +234,10 @@ vector<string> HashTable::getIndex()
     return I;
 }
 
+/*Increments the frequency if
+ * the document associated with a word
+ * is already in the docs vector.
+ */
 void HashNode::incFreq(string d)
 {
     for(int i = 0; i < docs.size(); i ++)
@@ -229,6 +249,9 @@ void HashNode::incFreq(string d)
     }
 }
 
+/*This function takes in a string
+ * and returns the associated frequency vector for ranking queries.
+ */
 vector<int> HashTable::getFreq(string query)
 {
     int index = hashFunction(query);
