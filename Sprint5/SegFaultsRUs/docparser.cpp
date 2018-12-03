@@ -91,7 +91,7 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     //Format file
     Document d;
     d.Parse(map);
-    Value& text = d["plain_text"];
+    Value& text = d["html_with_citations"];
 
     string temp = text.GetString();
     replaceSubStr(temp, "\n");
@@ -104,6 +104,13 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     replaceSubStr(temp, ";");
     replaceSubStr(temp, "-");
     replaceSubStr(temp, "*");
+    replaceSubStr(temp, "</pre>");
+    replaceSubStr(temp, "</span>");
+    replaceSubStr(temp, "</a>");
+    replaceSubStr(temp, "<pre class=\"inline\">");
+    replaceSubStr(temp, "    ");
+
+    cout << temp << endl;
 
     //Add words to index
     string insertStr ="";
