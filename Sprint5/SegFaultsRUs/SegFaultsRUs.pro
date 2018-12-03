@@ -25,5 +25,6 @@ HEADERS += \
     htindex.h \
     avlindex.h \
     persistedindex.h \
-    english_stem.h
+    english_stem.h \
+    stemming.h
 

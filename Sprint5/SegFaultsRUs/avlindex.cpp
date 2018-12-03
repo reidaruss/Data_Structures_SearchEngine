@@ -56,3 +56,8 @@ vector<int> avlindex::getFreq(string query)
 {
     return tree.getFreq(query);
 }
+
+int avlindex::getAVGW()
+{
+    return tree.getAVGW();
+}

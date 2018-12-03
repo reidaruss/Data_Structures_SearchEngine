@@ -25,10 +25,11 @@ private:
 
     AVLNode *root;
     int size;
+    int avgW;
     vector<string> words; //stores all of the words. used to get docs when writing persistant index.
 
 public:
-    AVLTree():root(nullptr){size = 0;}
+    AVLTree():root(nullptr){size = 0; avgW = 0;}
     AVLTree(const AVLTree& rhs):root(nullptr){*this = rhs;}
 
     /*
@@ -138,6 +139,11 @@ public:
         return getDocs(s, root);
     }
 
+    int getAVGW()
+    {
+        return avgW;
+    }
+
     vector<string> getIndex()
     {
         vector<string> I;
@@ -187,12 +193,11 @@ private:
     /*
      * function that checks if document is there
      * and if it is gets the elements in the document
-     * to save to a node that will be checked later
+     * to save to a node that will be checked later.(Used for search)
      */
     vector<string> getD(const string& s, AVLNode*& node)
     {
         vector<string> noResults;
-        noResults.push_back("There are no results for your search. Please try a different search.");
         if(node == nullptr)
             return noResults;
         else if(s == node->element)
@@ -204,7 +209,10 @@ private:
         else
             ;
     }
-
+    /*Function that finds a specific word
+     * and returns the frequency list
+     * associated with it.
+     * */
     vector<int> getFreq(const string& s, AVLNode*& node)
     {
         if(s == node->element)
@@ -217,7 +225,10 @@ private:
             ;
     }
 
-
+    /*Function to return the docs of word s
+     * that is KNOWN to be in the tree.
+     * the getD() above is for searching (not known).
+     * */
     vector<string> getDocs(const string& s, AVLNode*& node)
     {
         if(s == node->element)
@@ -262,6 +273,7 @@ private:
             }
             node->docs.push_back(d);
             node->freq.push_back(1);
+            avgW++;
         }
 
         else if(s < node->element)
@@ -312,6 +324,7 @@ private:
         {
             t = new AVLNode(x, nullptr, nullptr,d);
             size ++;
+            avgW++;
         }
         else if(x < t->element)
         {

@@ -31,6 +31,7 @@ public:
     virtual int getSize()     =0;
     virtual vector<string> getIndex() = 0;
     virtual vector<int> getFreq(string query) = 0;
+    virtual int getAVGW() = 0;
 
 
 };

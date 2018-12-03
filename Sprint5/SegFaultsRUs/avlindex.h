@@ -31,6 +31,7 @@ public:
     int getSize();
     vector<string> getIndex();
     vector<int> getFreq(string query);
+    int getAVGW();
 
 
 };

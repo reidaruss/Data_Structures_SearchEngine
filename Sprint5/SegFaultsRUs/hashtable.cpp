@@ -8,13 +8,23 @@ HashTable::HashTable()
 
 }
 
+/*Constructor that sets the initial values.
+ * This is called in htIndex and bucket
+ * is specified there.
+ * */
 HashTable::HashTable(int v)
 {
     this->bucket = v;
     table = new list<HashNode>[bucket];
     numWords = 0;
+    avgW = 0;
 }
 
+/*This function takes a word(string) and uses the
+ * STL hash function to convert it to an int
+ * and then modded with that number of buckets
+ * to ensure the word is not hashed out of bounds.
+ * */
 int HashTable::hashFunction(const string& x)
 {
     hash<string> hash_fn;
@@ -23,6 +33,14 @@ int HashTable::hashFunction(const string& x)
     return hash;
 }
 
+/*The insert function takes string x(word) and d(document)
+ * hashes the word, navigates to the index and looks to see if
+ * the word is already at that index. If it is not it creates a new
+ * node and pushes it back at that index. If it does find the word already
+ * there it checks to see if the document is already in the vector
+ * of docs. If it is it increments the frequency counter at the same index.
+ * If it is not it pushes back a new document to the docs vector.
+ * */
 void HashTable::insert(string x, string d)  //x is the key, d is the doc. need to add a doc string var in parser to keep track of when doc changes
 {
     int index = hashFunction(x);
@@ -37,6 +55,7 @@ void HashTable::insert(string x, string d)  //x is the key, d is the doc. need t
                 {
                     ci->pushBack(d);
                     ci->pushBack(1);
+                    avgW++;
                     return;
                 }
                 if(ci->checkDocs(d) == true)
@@ -49,28 +68,22 @@ void HashTable::insert(string x, string d)  //x is the key, d is the doc. need t
         HashNode temp(x,d);
         table[index].push_back(temp);
         numWords++;
+        avgW++;
     }
     else
     {
         HashNode temp(x,d);
         table[index].push_back(temp);
         numWords++;
+        avgW++;
     }
 }
 
-//void HashTable::remove(string key)
-//{
-//    int index = hashFunction(key); //get the hash index of key
-//    list<string> :: iterator i;    //find the key in the list
-//    for(i = table[index].begin(); i != table[index].end(); i++)
-//    {
-//        if(*i == key)
-//            break;
-//    }
-//    if(i != table[index].end())
-//        table[index].erase(i);
-//}
-
+/*This function is called when dindex is entered into the
+ * Interactive menu in UI. It iterates through the entire
+ * hash table and prints all of the nodes that are populated.
+ * Used for visual representation of the index.
+ */
 void HashTable::displayHash()
 {
     for(int i = 0; i < bucket; i++)
@@ -89,6 +102,7 @@ void HashTable::displayHash()
     }
     cout << "Number of unique words = " << numWords << endl;
 }
+
 
 int HashTable::getnumWords()
 {
@@ -156,7 +170,6 @@ bool HashTable::isEmpty()
 vector<string> HashTable::search(string query)
 {
     vector<string> noResults;
-    noResults.push_back("There are no results for your search. Please try a different search.");
     int index = hashFunction(query);
     if(table[index].size() != 0)
     {

@@ -40,6 +40,7 @@ using namespace rapidjson;
 
 DocParser::DocParser(){
     filesProcessed = 0;
+
 }
 
 void DocParser::readFiles(IndexInterface * index){
@@ -103,6 +104,7 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
         string displayData = "File Name: " + str2 + "\tTitle: " + title;
         if(pos == string::npos){
             index->insertI(insertStr, displayData);
+
         }
     }
 

@@ -28,7 +28,11 @@ vector<string> QueryProcessor::search()
 
 vector<string> QueryProcessor::regSearch(string q)
 {
+    vector<string> noresult;
+    noresult.push_back("No results for query. Please search for another word");
     vector<string> result = index->searchIndex(q); //change all search functions to accept string instead of vector.
+    if(result.size() ==0)
+        return noresult;
     vector<int> freq = index->getFreq(q);
     int temp;
     string tempstr;
@@ -51,19 +55,26 @@ vector<string> QueryProcessor::regSearch(string q)
             j++;
         }
     }
-    return result;
+    if(result.size() == 0)
+        return noresult;
+    else
+        return result;
 }
 
 vector<string> QueryProcessor::andS(int x)
 {
+    vector<string> noresult;
+    noresult.push_back("No results for query. Please search for another word");
     vector<string> result;
     vector<vector<string>> doccmp;
     vector<string> notv;
-    for(int i = x; i < query.size(); i++)
+    for(int i = x+1; i < query.size(); i++)
     {
         if(query[i] != "OR" && query[i] != "NOT")
         {
             vector<string> temp = regSearch(query[i]);
+            if(temp == noresult)
+                return noresult;
             doccmp.push_back(temp);
         }
         else
@@ -73,6 +84,11 @@ vector<string> QueryProcessor::andS(int x)
         }
 
 
+    }
+    for(int i = 0; i < doccmp.size(); i++)
+    {
+        if(doccmp[i].size() == 0)
+            return noresult;
     }
     //do comparison to see what files contain same words
 
@@ -110,11 +126,16 @@ vector<string> QueryProcessor::andS(int x)
             return altresult;
     }
 
-    return result;
+    if(result.size() == 0)
+        return noresult;
+    else
+        return result;
 }
 
 vector<string> QueryProcessor::orS(int x)
 {
+    vector<string> noresult;
+    noresult.push_back("No results for query. Please search for another word");
     vector<string> result;
     vector<vector<string>> doccmp;
     for(int i = x; i < query.size(); i++)
@@ -122,6 +143,8 @@ vector<string> QueryProcessor::orS(int x)
         if(query[i] != "AND" && query[i] != "NOT")
         {
             vector<string> temp = regSearch(query[i]);
+            if(temp == noresult)
+                return noresult;
             doccmp.push_back(temp);
         }
 
@@ -139,14 +162,23 @@ vector<string> QueryProcessor::orS(int x)
 
         }
     }
-    return result;
+    if(result.size() == 0)
+        return noresult;
+    else
+        return result;
 }
 
 vector<string> QueryProcessor::notS(int x)
 {
+    vector<string> noresult;
+    noresult.push_back("No results for query. Please search for another word");
     vector<string> result;
     vector<string> temp1 = regSearch(query[0]);
     vector<string> temp2 = regSearch(query[2]);
+    if(temp1 == noresult)
+        return noresult;
+    else if(temp2 == noresult)
+        return temp1;
     for(int i = 0; i < temp1.size(); i++)
     {
         for(int j = 0; j < temp2.size(); j++)
@@ -155,5 +187,8 @@ vector<string> QueryProcessor::notS(int x)
                 result.push_back(temp1[i]);
         }
     }
-    return result;
+    if(result.size() == 0)
+        return noresult;
+    else
+        return result;
 }
