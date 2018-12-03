@@ -73,12 +73,11 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
 
     const char* FILEPATH = path.c_str();
     struct stat buffer;
-    int status, fd, i;
+    int status, fd;
     char *map;
     //Find # of characters in file & set file size
     fd = open(FILEPATH, O_RDONLY);
     status = fstat(fd, &buffer);
-    const int NUMCHAR = buffer.st_size/sizeof(char);
     const int FILESIZE = buffer.st_size;
 
     //Memory map the file
@@ -96,7 +95,6 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     Value& title = d["local_path"];
 
     string temp = text.GetString();
-
 
     replaceSubStr(temp, "\n");
     replaceSubStr(temp, ".");
@@ -141,8 +139,6 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
         }
     }
 
-
-
     //Un-memory map the file
     if (map == MAP_FAILED) {
         close(fd);
@@ -172,4 +168,84 @@ void DocParser::replaceSubStr(string &main, const string &toErase){
         main.replace(pos, toErase.length(), " ");
     }
 }
+
+string DocParser::getFileExcerpt(string FILENAME){
+        string path = directoryHead + FILENAME;
+        const char* FILEPATH = path.c_str();
+        struct stat buffer;
+        int status, fd;
+        char *map;
+        //Find # of characters in file & set file size
+        fd = open(FILEPATH, O_RDONLY);
+        status = fstat(fd, &buffer);
+        const int FILESIZE = buffer.st_size;
+
+        //Memory map the file
+        if (fd == -1){
+            perror("Error opening file for reading");
+            exit(EXIT_FAILURE);
+        }
+        map = (char*)mmap(0, FILESIZE, PROT_READ, MAP_SHARED, fd, 0);
+
+        //Format file
+        Document d;
+        d.Parse(map);
+
+        Value& text = d["html_with_citations"];
+        string temp = text.GetString();
+
+        replaceSubStr(temp, "\n");
+        replaceSubStr(temp, ".");
+        replaceSubStr(temp, "(");
+        replaceSubStr(temp, ")");
+        replaceSubStr(temp, ",");
+        replaceSubStr(temp, "]");
+        replaceSubStr(temp, "[");
+        replaceSubStr(temp, ";");
+        replaceSubStr(temp, "-");
+        replaceSubStr(temp, "*");
+        replaceSubStr(temp, "</pre>");
+        replaceSubStr(temp, "</span>");
+        replaceSubStr(temp, "</a>");
+        replaceSubStr(temp, "<pre class=\"inline\">");
+        replaceSubStr(temp, "<span class=\"reporter\">");
+        replaceSubStr(temp, "<span class=\"volume\">");
+        replaceSubStr(temp, "<span class=\"page\">");
+        replaceSubStr(temp, "<span class=\"citation no link\">");
+        replaceSubStr(temp, "<span class=\"citation\" data id=\"");
+        replaceSubStr(temp, "\"><a href=\"/");
+        replaceSubStr(temp, "/\">");
+        replaceSubStr(temp, "/");
+        replaceSubStr(temp, "—");
+        replaceSubStr(temp,"_");
+        replaceSubStr(temp, "–");
+        replaceSubStr(temp, "“");
+        replaceSubStr(temp, "”");
+        replaceSubStr(temp,"’");
+        replaceSubStr(temp, "‘");
+        replaceSubStr(temp,":");
+        replaceSubStr(temp, "    ");
+
+        //Format excerpt
+        string outputString = "";
+        string insertStr ="";
+        istringstream str(temp);
+        for (int i = 0; i < 300; i++){
+            getline(str, insertStr, ' ');
+            outputString.append(insertStr + " ");
+        }
+
+        //Un-memory map the file
+        if (map == MAP_FAILED) {
+            close(fd);
+            perror("Error mmapping the file");
+            exit(EXIT_FAILURE);
+        }
+        if (munmap(map, FILESIZE) == -1) {
+            perror("Error un-mmapping the file");
+        }
+        close(fd);
+
+        return outputString;
+    }
 

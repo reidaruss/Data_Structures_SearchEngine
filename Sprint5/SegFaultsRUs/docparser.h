@@ -18,6 +18,7 @@ public:
 
     void setDirectoryHead(char* headToSet);
     void replaceSubStr(string &main, const string &toErase);
+    string getFileExcerpt(string FILENAME);
 
     void parseHTML(string s);
     int getFP();
