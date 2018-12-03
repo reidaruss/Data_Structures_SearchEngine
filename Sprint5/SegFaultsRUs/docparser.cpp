@@ -95,7 +95,7 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     string title = tempTitle.GetString();
     //Parse file
     replaceSubStrings(temp, parsingStrings);
-    //removeStopWords(temp);
+    removeStopWords(temp);
 
     //Add words to index
     string insertStr ="";
