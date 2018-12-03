@@ -248,7 +248,7 @@ void UserInterface::menu()
             cout << "Documents with your query:" << endl;
             for(int i = 0; i < results.size(); i++)
             {
-                cout << results[i] << endl;
+                cout << results[i] << endl << endl;
             }
             menu();
         }

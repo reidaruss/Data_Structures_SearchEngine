@@ -58,7 +58,6 @@ void DocParser::readFiles(IndexInterface * index){
             && (dir->d_name != v[1])
             && (dir->d_name != v[2])){
             filesProcessed++;
-            cout << dir->d_name << "|";
             parse(dir->d_name, index);
         }
     }
@@ -136,7 +135,7 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     istringstream str(temp);
     while(getline(str, insertStr, ' ')){
         size_t pos = insertStr.find(" ");
-        string displayData = "File Name: " + str2 + "\nTitle: " + title.GetString() + "\n";
+        string displayData = "File Name: " + str2 + "\tTitle: " + title.GetString();
         if(pos == string::npos){
             index->insertI(insertStr, displayData);
         }
