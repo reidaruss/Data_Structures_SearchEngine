@@ -118,8 +118,6 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
         perror("Error un-mmapping the file");
     }
     close(fd);
-
-    cout << getFileExcerpt("1722.json") << endl;
 }
 
 void DocParser::removeStopWords(string &main){
