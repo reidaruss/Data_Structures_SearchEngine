@@ -1,7 +1,10 @@
 #include "htindex.h"
 
 
-
+/*This constructor initializes the hash table
+ * and sets the number of buckets to a large
+ * prime number to avoid collisions.
+ */
 htindex::htindex()
 {
     ht = new HashTable(15485867); //big prime number to reduce collissions

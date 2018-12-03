@@ -10,6 +10,10 @@ PersistedIndex::PersistedIndex(IndexInterface *index)
     pindex = index;
 }
 
+/*This function is called when "exit" is input in UI.
+ * It is responsible for writing the index to a txt file (if index is not empty)
+ * in a format that can be read back into an index.
+ */
 void PersistedIndex::writeIndex(int indexType, int numWords, int avgW)
 {
     if(numWords == 0)
@@ -45,6 +49,10 @@ void PersistedIndex::writeIndex(int indexType, int numWords, int avgW)
 
 }
 
+/*This function opens the index.txt file in the build folder (if it exists)
+ * and populates the appropriate index with the persisted index.
+ * It then returns the index to UI.
+ */
 IndexInterface* PersistedIndex::readIndex()
 {
 

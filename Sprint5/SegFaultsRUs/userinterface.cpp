@@ -8,6 +8,10 @@ UserInterface::UserInterface()
     cout << "Welcome to SCOTUS Opinion Search Engine." << endl;
 }
 
+/*This function is the initial function call of the program.
+ * It reads in the persisted index (if there is one) then prompts
+ * the user for which menu they would like to navigate to.
+ * */
 void UserInterface::start()
 {
     PersistedIndex p;
@@ -35,6 +39,9 @@ void UserInterface::start()
 
 }
 
+/*This function is the maintenance menu and is responsible for
+ * handling adding opinions, clearing the index, switching menus, and exiting the program.
+ */
 void UserInterface::maintenance()
 {
     string uIn = "";
@@ -88,6 +95,7 @@ void UserInterface::maintenance()
             {
                 cout << "Index Cleared." << endl;
                 delete index;
+                index = NULL;
                 indexType = 0;
                 maintenance();
             }
@@ -136,6 +144,10 @@ void UserInterface::maintenance()
     }
 }
 
+/*This function is called when new files are being added.
+ * It calls the parser and sets the index type to keep track
+ * of what type of index it is.
+ */
 void UserInterface::init()
 {
     if(indexType == 0)
@@ -150,25 +162,30 @@ void UserInterface::init()
     }
 
 
-    if(indexType == 1)
+    if(indexType == 1 && index == NULL)
     {
         index = new avlindex;
     }
-    else if(indexType == 2)
+    else if(indexType == 2 && index == NULL)
     {
         index = new htindex;
     }
+
     DocParser parse;
     parse.setDirectoryHead(filepath);
     parse.readFiles(index);
-    filesParsed = parse.getFP();
-    numWords = index->getSize();
-    avgW = index->getAVGW();
+    filesParsed += parse.getFP();
+    numWords += index->getSize();
+    avgW += index->getAVGW();
     avgW = avgW/filesParsed;
     maintenance();
 
 }
 
+/*This function is the interactive menu and is responsible for handling user
+ * searches, printing statistics, switching menus, displaying the index(hashttable only)
+ * and exiting the program.
+ */
 void UserInterface::menu()
 {
     string uIn = ""; //user input
@@ -246,6 +263,7 @@ void UserInterface::menu()
             cin.get();
             cout << "Please Enter your search: " << endl;
             getline(cin, search);
+            transform(search.begin(), search.end(), search.begin(), ::tolower);
             QueryProcessor q(search, index);
             results = q.search();
             cout << "Documents with your query:" << endl;
@@ -253,6 +271,23 @@ void UserInterface::menu()
             {
                 cout << results[i] << endl << endl;
             }
+            if(results[0] == "No results for query. Please search for another word")
+                menu();
+            string fileN = "";
+            cout << "Enter the file name you would like to open or enter 'b' to go back to menu." << endl;
+            cin >> fileN;
+            if(fileN == "b")
+                menu();
+            for(int i = 0; i < results.size(); i ++)
+            {
+                if(fileN == results[i])
+                {
+                    DocParser docPrint;
+                    cout << docPrint.getFileExcerpt(fileN) << endl;
+                    menu();
+                }
+            }
+            cout << "Invalid Entry." << endl;
             menu();
         }
 
