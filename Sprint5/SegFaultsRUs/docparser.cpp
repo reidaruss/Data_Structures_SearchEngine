@@ -92,16 +92,12 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     //Format file
     Document d;
     d.Parse(map);
-<<<<<<< HEAD
+
     Value& text = d["html_with_citations"];
     Value& title = d["local_path"];
-=======
-    Value& text = d["plain_text"];
-    Value& html = d["html_with_citations"];
->>>>>>> 4f8817630bb7678f34630e76f2032c6836840bfa
 
     string temp = text.GetString();
-    string temphtml = html.GetString();
+
 
     replaceSubStr(temp, "\n");
     replaceSubStr(temp, ".");
@@ -143,9 +139,6 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
         string displayData = "File Name: " + str2 + "\nTitle: " + title.GetString() + "\n";
         if(pos == string::npos){
             index->insertI(insertStr, displayData);
-
-            cout << insertStr << endl;
-            index->insertI(insertStr, FILENAME);
         }
     }
 
