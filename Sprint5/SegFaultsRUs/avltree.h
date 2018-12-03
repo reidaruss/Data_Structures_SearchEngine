@@ -193,7 +193,7 @@ private:
     /*
      * function that checks if document is there
      * and if it is gets the elements in the document
-     * to save to a node that will be checked later
+     * to save to a node that will be checked later.(Used for search)
      */
     vector<string> getD(const string& s, AVLNode*& node)
     {
@@ -209,7 +209,10 @@ private:
         else
             ;
     }
-
+    /*Function that finds a specific word
+     * and returns the frequency list
+     * associated with it.
+     * */
     vector<int> getFreq(const string& s, AVLNode*& node)
     {
         if(s == node->element)
@@ -222,7 +225,10 @@ private:
             ;
     }
 
-
+    /*Function to return the docs of word s
+     * that is KNOWN to be in the tree.
+     * the getD() above is for searching (not known).
+     * */
     vector<string> getDocs(const string& s, AVLNode*& node)
     {
         if(s == node->element)
