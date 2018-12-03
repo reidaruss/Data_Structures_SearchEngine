@@ -81,6 +81,7 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     const int FILESIZE = buffer.st_size;
     //Memory map the file
     if (fd == -1){
+
         perror("Error opening file for reading");
         exit(EXIT_FAILURE);
     }
@@ -94,7 +95,7 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     string title = tempTitle.GetString();
     //Parse file
     replaceSubStrings(temp, parsingStrings);
-    removeStopWords(temp);
+    //removeStopWords(temp);
 
     //Add words to index
     string insertStr ="";
@@ -121,34 +122,35 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
 }
 
 void DocParser::removeStopWords(string &main){
-    string path = "externalFileDependencies/stopWords.txt";
-    //Load stop word file
-    const char* FILEPATH = path.c_str();
-    struct stat buffer;
-    int status, fd;
-    char *map;
-    //Find # of characters in file & set file size
-    fd = open(FILEPATH, O_RDONLY);
-    status = fstat(fd, &buffer);
-    const int FILESIZE = buffer.st_size;
-    //Memory map the file
-    if (fd == -1){
-        perror("Error opening file for reading");
-        exit(EXIT_FAILURE);
-    }
-    map = (char*)mmap(0, FILESIZE, PROT_READ, MAP_SHARED, fd, 0);
-    //Load stop words into vector
-    string importedList = map;
-    istringstream str(importedList);
-    vector<string> stopWordList;
-    string tempString = "";
-    while(getline(str, tempString, '\n')){
-        stopWordList.push_back(" "+tempString+" ");
-    }
-    //Convert main opinion string to lowercase
-    transform(main.begin(), main.end(), main.begin(), ::tolower);
-    //Remove stop words
-    replaceSubStrings(main, stopWordList);
+//    string path = "externalFileDependencies/stopWords.txt";
+//    //Load stop word file
+//    const char* FILEPATH = path.c_str();
+//    struct stat buffer;
+//    int status, fd;
+//    char *map;
+//    //Find # of characters in file & set file size
+//    fd = open(FILEPATH, O_RDONLY);
+//    status = fstat(fd, &buffer);
+//    const int FILESIZE = buffer.st_size;
+//    //Memory map the file
+//    if (fd == -1){
+//        cout << "HERE" << endl;
+//        perror("Error opening file for reading");
+//        exit(EXIT_FAILURE);
+//    }
+//    map = (char*)mmap(0, FILESIZE, PROT_READ, MAP_SHARED, fd, 0);
+//    //Load stop words into vector
+//    string importedList = map;
+//    istringstream str(importedList);
+//    vector<string> stopWordList;
+//    string tempString = "";
+//    while(getline(str, tempString, '\n')){
+//        stopWordList.push_back(" "+tempString+" ");
+//    }
+//    //Convert main opinion string to lowercase
+//    transform(main.begin(), main.end(), main.begin(), ::tolower);
+//    //Remove stop words
+//    replaceSubStrings(main, stopWordList);
 }
 
 void DocParser::setDirectoryHead(char* headToSet){
@@ -186,7 +188,8 @@ string DocParser::getFileExcerpt(string FILENAME){
                                     "<span class=\"page\">","<span class=\"citation no link\">",
                                     "<span class=\"citation\" data id=\"","\"><a href=\"/","/\">","/","—","_","–","“","”",
                                     "’","‘",":","    "};
-        string path = directoryHead + FILENAME;
+        string dhead = directoryHead;
+        string path = dhead + FILENAME;
         const char* FILEPATH = path.c_str();
         struct stat buffer;
         int status, fd;

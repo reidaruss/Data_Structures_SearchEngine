@@ -278,17 +278,13 @@ void UserInterface::menu()
             cin >> fileN;
             if(fileN == "b")
                 menu();
-            for(int i = 0; i < results.size(); i ++)
-            {
-                if(fileN == results[i])
-                {
-                    DocParser docPrint;
-                    cout << docPrint.getFileExcerpt(fileN) << endl;
-                    menu();
-                }
-            }
-            cout << "Invalid Entry." << endl;
-            menu();
+
+                DocParser docPrint;
+                cout << docPrint.getFileExcerpt(fileN) << endl;
+                menu();
+
+
+
         }
 
     }
