@@ -35,6 +35,7 @@ class UserInterface
 {
 private:
     int filesParsed;
+    int numWords;
     IndexInterface * index;
     char * filepath;
     int indexType;

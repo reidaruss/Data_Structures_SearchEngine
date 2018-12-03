@@ -10,15 +10,16 @@ PersistedIndex::PersistedIndex(IndexInterface *index)
     pindex = index;
 }
 
-void PersistedIndex::writeIndex()
+void PersistedIndex::writeIndex(int indexType)
 {
     vector<string> I = pindex->getIndex();
     ofstream file("index.txt");
     if(file.is_open())
     {
+        file << indexType << '\n';
         for(int i = 0; i < I.size(); i++)
         {
-            file << I[i] << endl;
+            file << I[i] << '\n';
         }
     }
     else
@@ -27,7 +28,48 @@ void PersistedIndex::writeIndex()
     }
 }
 
-void PersistedIndex::readIndex()
+IndexInterface* PersistedIndex::readIndex()
 {
 
+    string tempstr = "";
+    ifstream file("index.txt");
+
+    if(file.is_open())
+    {
+        file >> indexType;
+        getline(file, tempstr);
+        if(indexType == 0)
+        {
+            return NULL;
+        }
+        else if(indexType == 1)
+            pindex = new avlindex;
+        else if(indexType == 2)
+            pindex = new htindex;
+        else
+            return NULL;
+        while(getline(file, tempstr, '\n'))
+        {
+            vector<string> node;
+            istringstream ss(tempstr);
+            string s;
+            while(getline(ss,s, ' '))
+            {
+                node.push_back(s);
+            }
+            pindex->insertI(node[0],node[1]);
+            for(int i = 2; i < node.size(); i++)
+            {
+                pindex->insertI(node[0],node[i]);
+            }
+        }
+        file.close();
+    }
+    else
+        return NULL;
+
+    return pindex;
+
+
 }
+
