@@ -27,7 +27,9 @@
 #include <stdio.h>
 #include "queryprocessor.h"
 #include "persistedindex.h"
+#include <iostream>
 
+using namespace std;
 
 class UserInterface
 {

@@ -4,10 +4,10 @@ avlindex::avlindex()
 {}
 
 
-vector<string> avlindex::searchIndex(vector<string> query)
+vector<string> avlindex::searchIndex(string query)
 {
 
-    return tree.getDocs(query);
+    return tree.getD(query);
 }
 
 void avlindex::insertI(string s, string d)
@@ -52,7 +52,7 @@ vector<string> avlindex::getIndex()
     return tree.getIndex();
 }
 
-vector<int> avlindex::getFreq(vector<string> query)
+vector<int> avlindex::getFreq(string query)
 {
-
+    return tree.getFreq(query);
 }

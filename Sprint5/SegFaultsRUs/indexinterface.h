@@ -22,7 +22,7 @@ class IndexInterface
 {
 public:
     IndexInterface();
-    virtual vector<string> searchIndex(vector<string> query) = 0;
+    virtual vector<string> searchIndex(string query) = 0;
     virtual void insertI(string s, string d) = 0;
     virtual void displayI()   =0;
     virtual int getUWords()   =0;
@@ -30,7 +30,7 @@ public:
     virtual void clearIndex() =0;
     virtual int getSize()     =0;
     virtual vector<string> getIndex() = 0;
-    virtual vector<int> getFreq(vector<string> query) = 0;
+    virtual vector<int> getFreq(string query) = 0;
 
 
 };

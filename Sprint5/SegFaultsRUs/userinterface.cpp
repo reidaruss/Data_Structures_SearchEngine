@@ -217,10 +217,12 @@ void UserInterface::menu()
         }
         else
          {
-            string search;
+            string search = "";
+
             vector<string> results;
-            cout << "Please Enter your search: ";
-            cin >> search;
+            cin.get();
+            cout << "Please Enter your search: " << endl;
+            getline(cin, search);
             QueryProcessor q(search, index);
             results = q.search();
             cout << "Documents with your query:" << endl;

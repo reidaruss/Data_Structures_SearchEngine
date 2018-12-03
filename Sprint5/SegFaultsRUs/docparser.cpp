@@ -62,6 +62,7 @@ void DocParser::readFiles(IndexInterface * index){
             parse(dir->d_name, index);
         }
     }
+
     closedir(directory);
 }
 
@@ -92,8 +93,11 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     Document d;
     d.Parse(map);
     Value& text = d["plain_text"];
+    Value& html = d["html_with_citations"];
 
     string temp = text.GetString();
+    string temphtml = html.GetString();
+
     replaceSubStr(temp, "\n");
     replaceSubStr(temp, ".");
     replaceSubStr(temp, "(");
@@ -112,7 +116,7 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
         size_t pos = insertStr.find(" ");
         if(pos == string::npos){
             index->insertI(insertStr, FILENAME);
-            //cout << insertStr << endl;
+
         }
     }
 

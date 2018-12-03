@@ -153,17 +153,17 @@ bool HashTable::isEmpty()
         return false;
 }
 
-vector<string> HashTable::search(vector<string> query)
+vector<string> HashTable::search(string query)
 {
     vector<string> noResults;
     noResults.push_back("There are no results for your search. Please try a different search.");
-    int index = hashFunction(query[0]);
+    int index = hashFunction(query);
     if(table[index].size() != 0)
     {
         list<HashNode>::iterator ci;
         for(ci = table[index].begin(); ci != table[index].end(); ci++)
         {
-            if(ci->getKey() == query[0])
+            if(ci->getKey() == query)
             {
                 return ci->docs;
             }
@@ -216,15 +216,15 @@ void HashNode::incFreq(string d)
     }
 }
 
-vector<int> HashTable::getFreq(vector<string> query)
+vector<int> HashTable::getFreq(string query)
 {
-    int index = hashFunction(query[0]);
+    int index = hashFunction(query);
     if(table[index].size() != 0)
     {
         list<HashNode>::iterator ci;
         for(ci = table[index].begin(); ci != table[index].end(); ci++)
         {
-            if(ci->getKey() == query[0])
+            if(ci->getKey() == query)
             {
                 return ci->freq;
             }

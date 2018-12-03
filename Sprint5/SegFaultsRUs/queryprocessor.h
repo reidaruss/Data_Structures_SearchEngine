@@ -13,7 +13,6 @@
 #include <algorithm>
 #include <iostream>
 #include <sstream>
-#include <iostream>
 #include "indexinterface.h"
 #include <string>
 
@@ -28,7 +27,7 @@ public:
     QueryProcessor(string s, IndexInterface* ind);
 
     vector<string> search();
-    vector<string> regSearch();
+    vector<string> regSearch(string q);
     vector<string> andS(int x);
     vector<string> orS(int x);
     vector<string> notS(int x);

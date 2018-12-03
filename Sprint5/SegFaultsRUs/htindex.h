@@ -26,7 +26,7 @@ private:
     HashTable * ht;
 public:
     htindex();
-    vector<string> searchIndex(vector<string> query);
+    vector<string> searchIndex(string query);
     void insertI(string s, string d);
     void displayI();
     int getUWords();
@@ -34,7 +34,7 @@ public:
     void clearIndex();
     int getSize();
     vector<string> getIndex();
-    vector<int> getFreq(vector<string> query);
+    vector<int> getFreq(string query);
 
 };
 
