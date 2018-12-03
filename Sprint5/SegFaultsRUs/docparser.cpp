@@ -40,6 +40,7 @@ using namespace rapidjson;
 
 DocParser::DocParser(){
     filesProcessed = 0;
+
 }
 
 void DocParser::processData(){
@@ -59,7 +60,7 @@ void DocParser::readFiles(IndexInterface * index){
             && (dir->d_name != v[2])){
             filesProcessed++;
             parse(dir->d_name, index);
-            cout << dir->d_name << "|" << filesProcessed << endl;
+
 
         }
     }
@@ -141,6 +142,7 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
         string displayData = "File Name: " + str2 + "\tTitle: " + title;
         if(pos == string::npos){
             index->insertI(insertStr, displayData);
+
         }
 
 //        if(pos == string::npos){

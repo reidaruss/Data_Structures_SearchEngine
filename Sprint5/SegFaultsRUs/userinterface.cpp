@@ -217,6 +217,7 @@ void UserInterface::menu()
          {
             cout << "Number of files parsed: " << filesParsed << endl;
             cout << "Number of unique words: " << index->getUWords() << endl;
+            cout << "Average number of words Indexed per Opinion: " << avgW << endl;
             menu();
           }
     }

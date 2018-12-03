@@ -49,6 +49,7 @@ private:
     int bucket; //Number of buckets
     list<HashNode> *table; //pointer to an array containing buckets
     int numWords; //number of unique words;
+    int avgW;
 public:
     HashTable();
     HashTable(int v);
@@ -63,6 +64,7 @@ public:
     int getSize();
     vector<string> getIndex();
     vector<int> getFreq(string query);
+    int getAVGW(){return avgW;}
 
 };
 

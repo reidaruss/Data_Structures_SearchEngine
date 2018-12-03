@@ -13,6 +13,7 @@ HashTable::HashTable(int v)
     this->bucket = v;
     table = new list<HashNode>[bucket];
     numWords = 0;
+    avgW = 0;
 }
 
 int HashTable::hashFunction(const string& x)
@@ -37,6 +38,7 @@ void HashTable::insert(string x, string d)  //x is the key, d is the doc. need t
                 {
                     ci->pushBack(d);
                     ci->pushBack(1);
+                    avgW++;
                     return;
                 }
                 if(ci->checkDocs(d) == true)
@@ -49,12 +51,14 @@ void HashTable::insert(string x, string d)  //x is the key, d is the doc. need t
         HashNode temp(x,d);
         table[index].push_back(temp);
         numWords++;
+        avgW++;
     }
     else
     {
         HashNode temp(x,d);
         table[index].push_back(temp);
         numWords++;
+        avgW++;
     }
 }
 

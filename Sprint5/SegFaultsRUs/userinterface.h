@@ -39,6 +39,9 @@ private:
     IndexInterface * index;
     char * filepath;
     int indexType;
+    int avgW;
+
+
 public:
     UserInterface();
     void start();

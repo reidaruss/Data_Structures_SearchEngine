@@ -23,9 +23,11 @@ public:
     void parseHTML(string s);
     int getFP();
 
+
 private:
     char* directoryHead;
     int filesProcessed;
+
 };
 
 
