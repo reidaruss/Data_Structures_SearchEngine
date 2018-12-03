@@ -240,3 +240,61 @@ string DocParser::getFileExcerpt(string FILENAME){
         return outputString;
     }
 
+vector<string> DocParser::twoWordSearch(vector<string> v, const string &wordPair){
+    vector<string> docNames;
+    vector<string> results;
+    vector<string> parsingStrings = {"\n",".","(",")",",","]","[",";","-","*","</pre>","</span>","</a>",
+                                     "<pre class=\"inline\">","<span class=\"reporter\">","<span class=\"volume\">",
+                                    "<span class=\"page\">","<span class=\"citation no link\">",
+                                    "<span class=\"citation\" data id=\"","\"><a href=\"/","/\">","/","—","_","–","“","”",
+                                    "’","‘",":","    "};
+    string docName;
+    results.push_back("No results for query. Please search for another word");
+    for (int i = 0; i < v.size(); i++){
+        int pos = v[i].find("\t");
+        docName = v[i].substr(11, pos-11);
+        docNames.push_back(docName);
+    }
+    bool firstSpot = true;
+    for (int j = 0; j < docNames.size(); j++){
+        string path = directoryHead + docNames[j];
+
+        const char* FILEPATH = path.c_str();
+        struct stat buffer;
+        int status, fd;
+        char *map;
+        //Find # of characters in file & set file size
+        fd = open(FILEPATH, O_RDONLY);
+        status = fstat(fd, &buffer);
+        const int FILESIZE = buffer.st_size;
+
+        //Memory map the file
+        if (fd == -1){
+            perror("Error opening file for reading");
+            exit(EXIT_FAILURE);
+        }
+        map = (char*)mmap(0, FILESIZE, PROT_READ, MAP_SHARED, fd, 0);
+
+        //Format file
+        Document d;
+        d.Parse(map);
+
+        Value& text = d["html_with_citations"];
+        string temp = text.GetString();
+        replaceSubStrings(temp, parsingStrings);
+        removeStopWords(temp);
+
+        if(temp.find(wordPair) != string::npos){
+            if(firstSpot == true){
+                results[0] = v[j];
+                firstSpot = false;
+            }
+            else{
+               results.push_back(v[j]);
+            }
+        }
+    }
+
+    return results;
+}
+

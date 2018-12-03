@@ -16,6 +16,7 @@ public:
     void parse(char* FILENAME, IndexInterface * index);
     void removeStopWords(string &main);
     string stemString(string &s);
+    vector<string> twoWordSearch(vector<string> v, const string &wordPair);
 
     void setDirectoryHead(char* headToSet);
     void replaceSubStr(string &main, const string &toErase);

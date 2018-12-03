@@ -257,15 +257,35 @@ void UserInterface::menu()
         else
          {
             string search = "";
-
             vector<string> results;
             cin.get();
             cout << "Please Enter your search: " << endl;
             getline(cin, search);
             transform(search.begin(), search.end(), search.begin(), ::tolower);
-            search = parse.stemString(search);
-            QueryProcessor q(search, index);
-            results = q.search();
+            size_t pos = string::npos;
+            if(((pos = search.find("[")) != string::npos) && ((pos = search.find("]")) != string::npos)){
+                pos = search.find("[");
+                search.replace(pos, 1, "");
+                pos = search.find("]");
+                search.replace(pos, 1, "");
+
+                string firstWord = search.substr(0, search.find(" "));
+                string secondWord = search.substr(search.find(" "));
+                firstWord = parse.stemString(firstWord);
+                secondWord = parse.stemString(secondWord);
+                string wordPair = firstWord + " " + secondWord;
+                QueryProcessor q(firstWord, index);
+                results = q.search();
+                if(results[0] != "No results for query. Please search for another word"){
+                    results = parse.twoWordSearch(results, wordPair);
+                }
+            }
+            else{
+                search = parse.stemString(search);
+                QueryProcessor q(search, index);
+                results = q.search();
+            }
+
             cout << "Documents with your query:" << endl;
             for(int i = 0; i < results.size(); i++)
             {
