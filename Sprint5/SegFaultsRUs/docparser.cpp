@@ -176,7 +176,6 @@ void DocParser::replaceSubStrings(string &main, const vector<string> &v){
 }
 
 void DocParser::stemInput(string &main){
-
 }
 
 string DocParser::stemSearch(string &s){
