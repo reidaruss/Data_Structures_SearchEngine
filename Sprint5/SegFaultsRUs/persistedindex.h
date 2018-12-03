@@ -26,13 +26,15 @@ class PersistedIndex
 private:
     IndexInterface* pindex;
     int indexType;
+    int avgW;
 
 public:
     PersistedIndex();
     PersistedIndex(IndexInterface* index);
-    void writeIndex(int indexType, int numWords);
+    void writeIndex(int indexType, int numWords, int avgW);
     IndexInterface *readIndex();
     int getIndexType(){return indexType;}
+    int getAVGW(){return avgW;}
 };
 
 #endif // PERSISTEDINDEX_H

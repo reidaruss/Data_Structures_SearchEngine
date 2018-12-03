@@ -25,10 +25,11 @@ private:
 
     AVLNode *root;
     int size;
+    int avgW;
     vector<string> words; //stores all of the words. used to get docs when writing persistant index.
 
 public:
-    AVLTree():root(nullptr){size = 0;}
+    AVLTree():root(nullptr){size = 0; avgW = 0;}
     AVLTree(const AVLTree& rhs):root(nullptr){*this = rhs;}
 
     /*
@@ -138,6 +139,11 @@ public:
         return getDocs(s, root);
     }
 
+    int getAVGW()
+    {
+        return avgW;
+    }
+
     vector<string> getIndex()
     {
         vector<string> I;
@@ -192,7 +198,6 @@ private:
     vector<string> getD(const string& s, AVLNode*& node)
     {
         vector<string> noResults;
-        noResults.push_back("There are no results for your search. Please try a different search.");
         if(node == nullptr)
             return noResults;
         else if(s == node->element)
@@ -262,6 +267,7 @@ private:
             }
             node->docs.push_back(d);
             node->freq.push_back(1);
+            avgW++;
         }
 
         else if(s < node->element)
@@ -312,6 +318,7 @@ private:
         {
             t = new AVLNode(x, nullptr, nullptr,d);
             size ++;
+            avgW++;
         }
         else if(x < t->element)
         {

@@ -51,3 +51,8 @@ vector<int> htindex::getFreq(string query)
 {
     return ht->getFreq(query);
 }
+
+int htindex::getAVGW()
+{
+    return ht->getAVGW();
+}

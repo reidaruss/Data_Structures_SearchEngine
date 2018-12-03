@@ -10,7 +10,7 @@ PersistedIndex::PersistedIndex(IndexInterface *index)
     pindex = index;
 }
 
-void PersistedIndex::writeIndex(int indexType, int numWords)
+void PersistedIndex::writeIndex(int indexType, int numWords, int avgW)
 {
     if(numWords == 0)
     {
@@ -31,6 +31,7 @@ void PersistedIndex::writeIndex(int indexType, int numWords)
         if(file.is_open())
         {
             file << indexType << '\n';
+            file << avgW << '\n';
             for(int i = 0; i < I.size(); i++)
             {
                 file << I[i] << '\n';
@@ -53,6 +54,7 @@ IndexInterface* PersistedIndex::readIndex()
     if(file.is_open())
     {
         file >> indexType;
+        file >> avgW;
         getline(file, tempstr);
         if(indexType == 0)
         {

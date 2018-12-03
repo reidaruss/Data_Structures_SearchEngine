@@ -160,7 +160,6 @@ bool HashTable::isEmpty()
 vector<string> HashTable::search(string query)
 {
     vector<string> noResults;
-    noResults.push_back("There are no results for your search. Please try a different search.");
     int index = hashFunction(query);
     if(table[index].size() != 0)
     {

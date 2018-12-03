@@ -16,6 +16,7 @@ void UserInterface::start()
     {
         numWords = index->getSize();
         indexType = p.getIndexType();
+        avgW = p.getAVGW();
     }
 
     int choice = 0;
@@ -52,7 +53,7 @@ void UserInterface::maintenance()
     if(uIn == "exit")
     {
         PersistedIndex pI(index);
-        pI.writeIndex(indexType, numWords);
+        pI.writeIndex(indexType, numWords, avgW);
         index->clearIndex();
         delete index;
         return;
@@ -162,7 +163,8 @@ void UserInterface::init()
     parse.readFiles(index);
     filesParsed = parse.getFP();
     numWords = index->getSize();
-
+    avgW = index->getAVGW();
+    avgW = avgW/filesParsed;
     maintenance();
 
 }
@@ -224,7 +226,7 @@ void UserInterface::menu()
     else if(uIn == "exit")
     {
         PersistedIndex pI(index);
-        pI.writeIndex(indexType,numWords);
+        pI.writeIndex(indexType,numWords, avgW);
         index->clearIndex();
         delete index;
         return;
