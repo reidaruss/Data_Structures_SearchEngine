@@ -92,6 +92,7 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     Document d;
     d.Parse(map);
     Value& text = d["html_with_citations"];
+    Value& title = d["local_path"];
 
     string temp = text.GetString();
     replaceSubStr(temp, "\n");
@@ -131,8 +132,10 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     istringstream str(temp);
     while(getline(str, insertStr, ' ')){
         size_t pos = insertStr.find(" ");
+        string displayData = "File Name: " + str2 + "\nTitle: " + title.GetString() + "\n";
         if(pos == string::npos){
-            index->insertI(insertStr, FILENAME);
+            index->insertI(insertStr, displayData);
+
             cout << insertStr << endl;
         }
     }
