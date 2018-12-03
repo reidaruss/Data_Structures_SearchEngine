@@ -52,7 +52,7 @@ void UserInterface::maintenance()
     if(uIn == "exit")
     {
         PersistedIndex pI(index);
-        pI.writeIndex(indexType);
+        pI.writeIndex(indexType, numWords);
         index->clearIndex();
         delete index;
         return;
@@ -223,7 +223,7 @@ void UserInterface::menu()
     else if(uIn == "exit")
     {
         PersistedIndex pI(index);
-        pI.writeIndex(indexType);
+        pI.writeIndex(indexType,numWords);
         index->clearIndex();
         delete index;
         return;

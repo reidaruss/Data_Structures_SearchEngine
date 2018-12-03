@@ -30,7 +30,7 @@ private:
 public:
     PersistedIndex();
     PersistedIndex(IndexInterface* index);
-    void writeIndex(int indexType);
+    void writeIndex(int indexType, int numWords);
     IndexInterface *readIndex();
     int getIndexType(){return indexType;}
 };

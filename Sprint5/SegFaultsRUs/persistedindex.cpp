@@ -10,22 +10,38 @@ PersistedIndex::PersistedIndex(IndexInterface *index)
     pindex = index;
 }
 
-void PersistedIndex::writeIndex(int indexType)
+void PersistedIndex::writeIndex(int indexType, int numWords)
 {
-    vector<string> I = pindex->getIndex();
-    ofstream file("index.txt");
-    if(file.is_open())
+    if(numWords == 0)
     {
-        file << indexType << '\n';
-        for(int i = 0; i < I.size(); i++)
+        ofstream file("index.txt");
+        if(file.is_open())
         {
-            file << I[i] << '\n';
+            file << indexType << '\n';
+        }
+        else
+        {
+            cout << "Unable to open file." << endl;
         }
     }
     else
     {
-        cout << "Unable to open file." << endl;
+        vector<string> I = pindex->getIndex();
+        ofstream file("index.txt");
+        if(file.is_open())
+        {
+            file << indexType << '\n';
+            for(int i = 0; i < I.size(); i++)
+            {
+                file << I[i] << '\n';
+            }
+        }
+        else
+        {
+            cout << "Unable to open file." << endl;
+        }
     }
+
 }
 
 IndexInterface* PersistedIndex::readIndex()
