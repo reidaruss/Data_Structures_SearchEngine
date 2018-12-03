@@ -108,9 +108,23 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     replaceSubStr(temp, "</span>");
     replaceSubStr(temp, "</a>");
     replaceSubStr(temp, "<pre class=\"inline\">");
+    replaceSubStr(temp, "<span class=\"reporter\">");
+    replaceSubStr(temp, "<span class=\"volume\">");
+    replaceSubStr(temp, "<span class=\"page\">");
+    replaceSubStr(temp, "<span class=\"citation no link\">");
+    replaceSubStr(temp, "<span class=\"citation\" data id=\"");
+    replaceSubStr(temp, "\"><a href=\"/");
+    replaceSubStr(temp, "/\">");
+    replaceSubStr(temp, "/");
+    replaceSubStr(temp, "—");
+    replaceSubStr(temp,"_");
+    replaceSubStr(temp, "–");
+    replaceSubStr(temp, "“");
+    replaceSubStr(temp, "”");
+    replaceSubStr(temp,"’");
+    replaceSubStr(temp, "‘");
+    replaceSubStr(temp,":");
     replaceSubStr(temp, "    ");
-
-    cout << temp << endl;
 
     //Add words to index
     string insertStr ="";
@@ -119,7 +133,7 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
         size_t pos = insertStr.find(" ");
         if(pos == string::npos){
             index->insertI(insertStr, FILENAME);
-            //cout << insertStr << endl;
+            cout << insertStr << endl;
         }
     }
 
