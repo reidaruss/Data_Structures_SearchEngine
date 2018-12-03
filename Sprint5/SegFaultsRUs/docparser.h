@@ -12,12 +12,13 @@ class DocParser
 {
 public:
     DocParser();
-    void processData();
     void readFiles(IndexInterface * index);
     void parse(char* FILENAME, IndexInterface * index);
+    void removeStopWords(string &main);
 
     void setDirectoryHead(char* headToSet);
     void replaceSubStr(string &main, const string &toErase);
+    void replaceSubStrings(string &main, const vector<string> &v);
     string getFileExcerpt(string FILENAME);
 
     void parseHTML(string s);
