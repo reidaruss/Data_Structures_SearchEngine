@@ -43,9 +43,6 @@ DocParser::DocParser(){
 
 }
 
-void DocParser::processData(){
-
-}
 void DocParser::readFiles(IndexInterface * index){
     vector<string> v;
     v.push_back("95882.json");
@@ -60,20 +57,20 @@ void DocParser::readFiles(IndexInterface * index){
             && (dir->d_name != v[2])){
             filesProcessed++;
             parse(dir->d_name, index);
-
-
         }
     }
-
     closedir(directory);
 }
 
 void DocParser::parse(char* FILENAME, IndexInterface * index){
-
+    vector<string> parsingStrings = {"\n",".","(",")",",","]","[",";","-","*","</pre>","</span>","</a>",
+                                     "<pre class=\"inline\">","<span class=\"reporter\">","<span class=\"volume\">",
+                                    "<span class=\"page\">","<span class=\"citation no link\">",
+                                    "<span class=\"citation\" data id=\"","\"><a href=\"/","/\">","/","—","_","–","“","”",
+                                    "’","‘",":","    "};
     string str1 = directoryHead;
     string str2 = FILENAME;
     string path = str1+str2;
-
     const char* FILEPATH = path.c_str();
     struct stat buffer;
     int status, fd;
@@ -82,73 +79,33 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     fd = open(FILEPATH, O_RDONLY);
     status = fstat(fd, &buffer);
     const int FILESIZE = buffer.st_size;
-
     //Memory map the file
     if (fd == -1){
         perror("Error opening file for reading");
         exit(EXIT_FAILURE);
     }
     map = (char*)mmap(0, FILESIZE, PROT_READ, MAP_SHARED, fd, 0);
-
-    //Format file
+    //Extract data from file
     Document d;
     d.Parse(map);
-
     Value& text = d["html_with_citations"];
     Value& tempTitle = d["absolute_url"];
-
     string temp = text.GetString();
     string title = tempTitle.GetString();
-
-    replaceSubStr(temp, "\n");
-    replaceSubStr(temp, ".");
-    replaceSubStr(temp, "(");
-    replaceSubStr(temp, ")");
-    replaceSubStr(temp, ",");
-    replaceSubStr(temp, "]");
-    replaceSubStr(temp, "[");
-    replaceSubStr(temp, ";");
-    replaceSubStr(temp, "-");
-    replaceSubStr(temp, "*");
-    replaceSubStr(temp, "</pre>");
-    replaceSubStr(temp, "</span>");
-    replaceSubStr(temp, "</a>");
-    replaceSubStr(temp, "<pre class=\"inline\">");
-    replaceSubStr(temp, "<span class=\"reporter\">");
-    replaceSubStr(temp, "<span class=\"volume\">");
-    replaceSubStr(temp, "<span class=\"page\">");
-    replaceSubStr(temp, "<span class=\"citation no link\">");
-    replaceSubStr(temp, "<span class=\"citation\" data id=\"");
-    replaceSubStr(temp, "\"><a href=\"/");
-    replaceSubStr(temp, "/\">");
-    replaceSubStr(temp, "/");
-    replaceSubStr(temp, "—");
-    replaceSubStr(temp,"_");
-    replaceSubStr(temp, "–");
-    replaceSubStr(temp, "“");
-    replaceSubStr(temp, "”");
-    replaceSubStr(temp,"’");
-    replaceSubStr(temp, "‘");
-    replaceSubStr(temp,":");
-    replaceSubStr(temp, "    ");
+    //Parse file
+    replaceSubStrings(temp, parsingStrings);
+    removeStopWords(temp);
 
     //Add words to index
     string insertStr ="";
     istringstream str(temp);
     while(getline(str, insertStr, ' ')){
         size_t pos = insertStr.find(" ");
-
-
         string displayData = "File Name: " + str2 + "\tTitle: " + title;
         if(pos == string::npos){
             index->insertI(insertStr, displayData);
 
         }
-
-//        if(pos == string::npos){
-//            index->insertI(insertStr, FILENAME);
-//        }
-
     }
 
     //Un-memory map the file
@@ -162,7 +119,38 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     }
     close(fd);
 
+    cout << getFileExcerpt("1722.json") << endl;
+}
 
+void DocParser::removeStopWords(string &main){
+    string path = "/home/student/Desktop/externalFileDependencies/stopWords.txt";
+    //Load stop word file
+    const char* FILEPATH = path.c_str();
+    struct stat buffer;
+    int status, fd;
+    char *map;
+    //Find # of characters in file & set file size
+    fd = open(FILEPATH, O_RDONLY);
+    status = fstat(fd, &buffer);
+    const int FILESIZE = buffer.st_size;
+    //Memory map the file
+    if (fd == -1){
+        perror("Error opening file for reading");
+        exit(EXIT_FAILURE);
+    }
+    map = (char*)mmap(0, FILESIZE, PROT_READ, MAP_SHARED, fd, 0);
+    //Load stop words into vector
+    string importedList = map;
+    istringstream str(importedList);
+    vector<string> stopWordList;
+    string tempString = "";
+    while(getline(str, tempString, '\n')){
+        stopWordList.push_back(" "+tempString+" ");
+    }
+    //Convert main opinion string to lowercase
+    transform(main.begin(), main.end(), main.begin(), ::tolower);
+    //Remove stop words
+    replaceSubStrings(main, stopWordList);
 }
 
 void DocParser::setDirectoryHead(char* headToSet){
@@ -181,7 +169,18 @@ void DocParser::replaceSubStr(string &main, const string &toErase){
     }
 }
 
+void DocParser::replaceSubStrings(string &main, const vector<string> &v){
+    for(int i = 0; i < v.size(); i++){
+        replaceSubStr(main, v[i]);
+    }
+}
+
 string DocParser::getFileExcerpt(string FILENAME){
+        vector<string> parsingStrings = {"\n",".","(",")",",","]","[",";","-","*","</pre>","</span>","</a>",
+                                     "<pre class=\"inline\">","<span class=\"reporter\">","<span class=\"volume\">",
+                                    "<span class=\"page\">","<span class=\"citation no link\">",
+                                    "<span class=\"citation\" data id=\"","\"><a href=\"/","/\">","/","—","_","–","“","”",
+                                    "’","‘",":","    "};
         string path = directoryHead + FILENAME;
         const char* FILEPATH = path.c_str();
         struct stat buffer;
@@ -205,38 +204,7 @@ string DocParser::getFileExcerpt(string FILENAME){
 
         Value& text = d["html_with_citations"];
         string temp = text.GetString();
-
-        replaceSubStr(temp, "\n");
-        replaceSubStr(temp, ".");
-        replaceSubStr(temp, "(");
-        replaceSubStr(temp, ")");
-        replaceSubStr(temp, ",");
-        replaceSubStr(temp, "]");
-        replaceSubStr(temp, "[");
-        replaceSubStr(temp, ";");
-        replaceSubStr(temp, "-");
-        replaceSubStr(temp, "*");
-        replaceSubStr(temp, "</pre>");
-        replaceSubStr(temp, "</span>");
-        replaceSubStr(temp, "</a>");
-        replaceSubStr(temp, "<pre class=\"inline\">");
-        replaceSubStr(temp, "<span class=\"reporter\">");
-        replaceSubStr(temp, "<span class=\"volume\">");
-        replaceSubStr(temp, "<span class=\"page\">");
-        replaceSubStr(temp, "<span class=\"citation no link\">");
-        replaceSubStr(temp, "<span class=\"citation\" data id=\"");
-        replaceSubStr(temp, "\"><a href=\"/");
-        replaceSubStr(temp, "/\">");
-        replaceSubStr(temp, "/");
-        replaceSubStr(temp, "—");
-        replaceSubStr(temp,"_");
-        replaceSubStr(temp, "–");
-        replaceSubStr(temp, "“");
-        replaceSubStr(temp, "”");
-        replaceSubStr(temp,"’");
-        replaceSubStr(temp, "‘");
-        replaceSubStr(temp,":");
-        replaceSubStr(temp, "    ");
+        replaceSubStrings(temp, parsingStrings);
 
         //Format excerpt
         string outputString = "";
