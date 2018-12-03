@@ -171,7 +171,6 @@ void UserInterface::init()
         index = new htindex;
     }
 
-    DocParser parse;
     parse.setDirectoryHead(filepath);
     parse.readFiles(index);
     filesParsed += parse.getFP();
@@ -279,8 +278,8 @@ void UserInterface::menu()
             if(fileN == "b")
                 menu();
 
-                DocParser docPrint;
-                cout << docPrint.getFileExcerpt(fileN) << endl;
+
+                cout << parse.getFileExcerpt(fileN) << endl;
                 menu();
 
 

@@ -40,6 +40,7 @@ private:
     char * filepath;
     int indexType;
     int avgW;
+    DocParser parse;
 
 
 public:
