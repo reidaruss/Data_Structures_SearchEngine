@@ -4,7 +4,7 @@
 
 htindex::htindex()
 {
-    ht = new HashTable(500000);
+    ht = new HashTable(15485867); //big prime number to reduce collissions
 }
 
 vector<string> htindex::searchIndex(string query)
