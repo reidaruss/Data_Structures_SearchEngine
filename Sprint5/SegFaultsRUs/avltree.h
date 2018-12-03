@@ -123,9 +123,14 @@ public:
     /*
      * gets documents to parse through
      */
-    vector<string> getDocs(const vector<string>& s)
+    vector<string> getD(const string& s)
     {
-        return getDocs(s, root);
+        return getD(s, root);
+    }
+
+    vector<int> getFreq(const string& s)
+    {
+        return getFreq(s,root);
     }
 
     vector<string> getDocs(const string& s)
@@ -184,18 +189,30 @@ private:
      * and if it is gets the elements in the document
      * to save to a node that will be checked later
      */
-    vector<string> getDocs(const vector<string>& s, AVLNode*& node)
+    vector<string> getD(const string& s, AVLNode*& node)
     {
         vector<string> noResults;
         noResults.push_back("There are no results for your search. Please try a different search.");
         if(node == nullptr)
             return noResults;
-        else if(s[0] == node->element)
+        else if(s == node->element)
             return node->docs;
-        else if(s[0] < node->element)
-            return getDocs(s, node->left);
-        else if(s[0] > node->element)
-            return getDocs(s, node->right);
+        else if(s < node->element)
+            return getD(s, node->left);
+        else if(s > node->element)
+            return getD(s, node->right);
+        else
+            ;
+    }
+
+    vector<int> getFreq(const string& s, AVLNode*& node)
+    {
+        if(s == node->element)
+            return node->freq;
+        else if(s < node->element)
+            return getFreq(s, node->left);
+        else if(s > node->element)
+            return getFreq(s, node->right);
         else
             ;
     }

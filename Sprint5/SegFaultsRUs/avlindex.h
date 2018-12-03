@@ -23,13 +23,14 @@ private:
 public:
     avlindex();
     void insertI(string s, string d);
-    vector<string> searchIndex(vector<string> query);
+    vector<string> searchIndex(string query);
     void displayI();
     int getUWords();
     bool isEmpty();
     void clearIndex();
     int getSize();
     vector<string> getIndex();
+    vector<int> getFreq(string query);
 
 
 };

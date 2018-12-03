@@ -3,12 +3,21 @@
 UserInterface::UserInterface()
 {
     filesParsed = 0;
+    numWords = 0;
     indexType = 0;
     cout << "Welcome to SCOTUS Opinion Search Engine." << endl;
 }
 
 void UserInterface::start()
 {
+    PersistedIndex p;
+    index = p.readIndex();
+    if(index != NULL)
+    {
+        numWords = index->getSize();
+        indexType = p.getIndexType();
+    }
+
     int choice = 0;
     cout << "Please enter 1 for maintenance mode or 2 for interactive mode." << endl;
     cin >> choice;
@@ -42,8 +51,10 @@ void UserInterface::maintenance()
     transform(uIn.begin(), uIn.end(), uIn.begin(), ::tolower);
     if(uIn == "exit")
     {
-        //PersistedIndex pI(index);
-        //pI.writeIndex();
+        PersistedIndex pI(index);
+        pI.writeIndex(indexType, numWords);
+        index->clearIndex();
+        delete index;
         return;
     }
     else if(uIn == "exit-d")
@@ -62,7 +73,7 @@ void UserInterface::maintenance()
     }
     else if(uIn == "ci")
     {
-        if(filesParsed == 0)
+        if(numWords == 0)
         {
             cout << "Index already empty. Please add opinions." << endl;
             maintenance();
@@ -71,10 +82,12 @@ void UserInterface::maintenance()
         {
             index->clearIndex();
             if(index->isEmpty() == true)
-                filesParsed = 0;
-            if(filesParsed == 0)
+                numWords = 0;
+            if(numWords == 0)
             {
                 cout << "Index Cleared." << endl;
+                delete index;
+                indexType = 0;
                 maintenance();
             }
             else
@@ -95,7 +108,7 @@ void UserInterface::maintenance()
         string file;
         cout << "Please Enter A File Path: " ;
         cin >> file;
-        if(filesParsed != 0)
+        if(numWords != 0)
         {
             delete filepath;
             filepath = new char[file.length() + 1];
@@ -148,6 +161,7 @@ void UserInterface::init()
     parse.setDirectoryHead(filepath);
     parse.readFiles(index);
     filesParsed = parse.getFP();
+    numWords = index->getSize();
 
     maintenance();
 
@@ -171,7 +185,7 @@ void UserInterface::menu()
 
     if(uIn == "dindex")
     {
-        if(filesParsed == 0)
+        if(numWords == 0)
         {
                 cout << "Index is empty, please add opinions in the maintenance menu." << endl;
                 menu();
@@ -194,7 +208,7 @@ void UserInterface::menu()
     }
     else if(uIn == "stats")
     {
-        if(filesParsed == 0)
+        if(numWords == 0)
         {
            cout << "Index is empty, please add opinions in the maintenance menu." << endl;
            menu();
@@ -207,20 +221,28 @@ void UserInterface::menu()
           }
     }
     else if(uIn == "exit")
+    {
+        PersistedIndex pI(index);
+        pI.writeIndex(indexType,numWords);
+        index->clearIndex();
+        delete index;
         return;
+    }
     else if(uIn == "search")
     {
-        if(filesParsed == 0)
+        if(numWords == 0)
         {
            cout << "Index is empty, please add opinions in the maintenance menu." << endl;
            menu();
         }
         else
          {
-            string search;
+            string search = "";
+
             vector<string> results;
-            cout << "Please Enter your search: ";
-            cin >> search;
+            cin.get();
+            cout << "Please Enter your search: " << endl;
+            getline(cin, search);
             QueryProcessor q(search, index);
             results = q.search();
             cout << "Documents with your query:" << endl;

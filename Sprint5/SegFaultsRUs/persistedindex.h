@@ -15,6 +15,9 @@
 #include "indexinterface.h"
 #include <fstream>
 #include <iostream>
+#include "avlindex.h"
+#include "htindex.h"
+#include <sstream>
 
 using namespace std;
 
@@ -22,12 +25,14 @@ class PersistedIndex
 {
 private:
     IndexInterface* pindex;
+    int indexType;
 
 public:
     PersistedIndex();
     PersistedIndex(IndexInterface* index);
-    void writeIndex();
-    void readIndex();
+    void writeIndex(int indexType, int numWords);
+    IndexInterface *readIndex();
+    int getIndexType(){return indexType;}
 };
 
 #endif // PERSISTEDINDEX_H

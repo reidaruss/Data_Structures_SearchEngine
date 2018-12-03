@@ -59,9 +59,10 @@ public:
     int getnumWords();
     void clear();
     bool isEmpty();
-    vector<string> search(vector<string> query);
+    vector<string> search(string query);
     int getSize();
     vector<string> getIndex();
+    vector<int> getFreq(string query);
 
 };
 

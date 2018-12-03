@@ -25,7 +25,6 @@ public:
 private:
     char* directoryHead;
     int filesProcessed;
-
 };
 
 

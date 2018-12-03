@@ -7,7 +7,7 @@ htindex::htindex()
     ht = new HashTable(500000);
 }
 
-vector<string> htindex::searchIndex(vector<string> query)
+vector<string> htindex::searchIndex(string query)
 {
     return ht->search(query);
 }
@@ -45,4 +45,9 @@ int htindex::getSize()
 vector<string> htindex::getIndex()
 {
     return ht->getIndex();
+}
+
+vector<int> htindex::getFreq(string query)
+{
+    return ht->getFreq(query);
 }

@@ -58,10 +58,11 @@ void DocParser::readFiles(IndexInterface * index){
             && (dir->d_name != v[1])
             && (dir->d_name != v[2])){
             filesProcessed++;
-            //cout << dir->d_name << "|";
+            cout << dir->d_name << "|";
             parse(dir->d_name, index);
         }
     }
+
     closedir(directory);
 }
 
@@ -91,10 +92,17 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
     //Format file
     Document d;
     d.Parse(map);
+<<<<<<< HEAD
     Value& text = d["html_with_citations"];
     Value& title = d["local_path"];
+=======
+    Value& text = d["plain_text"];
+    Value& html = d["html_with_citations"];
+>>>>>>> 4f8817630bb7678f34630e76f2032c6836840bfa
 
     string temp = text.GetString();
+    string temphtml = html.GetString();
+
     replaceSubStr(temp, "\n");
     replaceSubStr(temp, ".");
     replaceSubStr(temp, "(");
@@ -137,6 +145,7 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
             index->insertI(insertStr, displayData);
 
             cout << insertStr << endl;
+            index->insertI(insertStr, FILENAME);
         }
     }
 
