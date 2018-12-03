@@ -31,8 +31,8 @@
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
-
-//HTML INCLUDES
+//STEMMER INCLUDES
+#include "english_stem.h"
 
 
 using namespace std;
@@ -118,12 +118,10 @@ void DocParser::parse(char* FILENAME, IndexInterface * index){
         perror("Error un-mmapping the file");
     }
     close(fd);
-
-    cout << getFileExcerpt("1722.json") << endl;
 }
 
 void DocParser::removeStopWords(string &main){
-    string path = "/home/student/Desktop/externalFileDependencies/stopWords.txt";
+    string path = "externalFileDependencies/stopWords.txt";
     //Load stop word file
     const char* FILEPATH = path.c_str();
     struct stat buffer;
@@ -173,6 +171,13 @@ void DocParser::replaceSubStrings(string &main, const vector<string> &v){
     for(int i = 0; i < v.size(); i++){
         replaceSubStr(main, v[i]);
     }
+}
+
+void DocParser::stemInput(string &main){
+}
+
+string DocParser::stemSearch(string &s){
+
 }
 
 string DocParser::getFileExcerpt(string FILENAME){

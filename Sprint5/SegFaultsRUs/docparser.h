@@ -15,6 +15,8 @@ public:
     void readFiles(IndexInterface * index);
     void parse(char* FILENAME, IndexInterface * index);
     void removeStopWords(string &main);
+    void stemInput(string &main);
+    string stemSearch(string &s);
 
     void setDirectoryHead(char* headToSet);
     void replaceSubStr(string &main, const string &toErase);
