@@ -14,7 +14,7 @@ it under the terms of the BSD License.
 #ifndef __ENGLISH_STEM_H__
 #define __ENGLISH_STEM_H__
 
-#include "stemming.h"
+#include "stemming/stemming.h"
 
 namespace stemming
     {

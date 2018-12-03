@@ -31,8 +31,8 @@
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
-
-//HTML INCLUDES
+//STEMMER INCLUDES
+#include "english_stem.h"
 
 
 using namespace std;
@@ -173,6 +173,14 @@ void DocParser::replaceSubStrings(string &main, const vector<string> &v){
     for(int i = 0; i < v.size(); i++){
         replaceSubStr(main, v[i]);
     }
+}
+
+void DocParser::stemInput(string &main){
+
+}
+
+string DocParser::stemSearch(string &s){
+
 }
 
 string DocParser::getFileExcerpt(string FILENAME){
