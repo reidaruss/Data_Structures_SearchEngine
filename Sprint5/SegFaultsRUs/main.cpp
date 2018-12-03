@@ -26,8 +26,8 @@ using namespace rapidjson;
 int main()
 {
 
-    UserInterface ui;
-    ui.start();
+    UserInterface ui; //Initializes the user interface.
+    ui.start();       //Starts the program.
 
 
     return 0;
